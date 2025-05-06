@@ -6,6 +6,30 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 export const initHeroAnimation = (canvas: HTMLCanvasElement) => {
   // Scene setup
   const scene = new THREE.Scene();
+  const isDark = document.documentElement.classList.contains('dark');
+  scene.background = new THREE.Color(isDark ? 0x0a0a0a : 0xfffada);
+
+  // Reference to particle mesh for theme updates
+  let particlesMesh: THREE.Points | null = null;
+
+  const updateBackground = () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    scene.background = new THREE.Color(isDark ? 0x0a0a0a : 0xfffada);
+    
+    // Update particle properties when theme changes
+    if (particlesMesh && particlesMesh.material instanceof THREE.PointsMaterial) {
+      const material = particlesMesh.material;
+      material.color = new THREE.Color(isDark ? 0x2563eb : 0x3b82f6);
+      material.blending = isDark ? THREE.AdditiveBlending : THREE.NormalBlending;
+    }
+  };
+  
+  const observer = new MutationObserver(updateBackground);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+
   const camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
@@ -29,7 +53,7 @@ export const initHeroAnimation = (canvas: HTMLCanvasElement) => {
 
   const bloomPass = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
-    1.5, // glow strength
+    1.5, // glow strength (keeping original value)
     0.4, // radius
     0.1  // threshold
   );
@@ -79,32 +103,36 @@ export const initHeroAnimation = (canvas: HTMLCanvasElement) => {
       particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
       particlesGeometry.setAttribute('scale', new THREE.BufferAttribute(scaleArray, 1));
 
+      // Create particle material with theme-aware settings
       const particlesMaterial = new THREE.PointsMaterial({
         size: 1.5,
         map: starTexture,
         alphaMap: starTexture,
         transparent: true,
         depthWrite: false,
-        blending: THREE.AdditiveBlending,
-        color: new THREE.Color(0x5D87FF),
+        blending: isDark ? THREE.AdditiveBlending : THREE.NormalBlending,
+        color: new THREE.Color(isDark ? 0x2563eb : 0x3b82f6),
       });
 
-      const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+      particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
       scene.add(particlesMesh);
 
       const clock = new THREE.Clock();
 
       const animate = () => {
         const elapsedTime = clock.getElapsedTime();
-        particlesMesh.rotation.x = elapsedTime * 0.03 + mouse.y * 0.001;
-        particlesMesh.rotation.y = elapsedTime * 0.05 + mouse.x * 0.001;
+        if (particlesMesh) {
+          particlesMesh.rotation.x = elapsedTime * 0.03 + mouse.y * 0.001;
+          particlesMesh.rotation.y = elapsedTime * 0.05 + mouse.x * 0.001;
+        }
         composer.render();
         requestAnimationFrame(animate);
       };
 
       animate();
 
-      // Add cleanup if needed (e.g., store particlesMesh in outer scope)
+      // Run updateBackground once to ensure initial state is correct
+      updateBackground();
     },
     undefined,
     (err) => {
@@ -116,6 +144,7 @@ export const initHeroAnimation = (canvas: HTMLCanvasElement) => {
   return () => {
     window.removeEventListener('resize', handleResize);
     window.removeEventListener('mousemove', () => {});
+    observer.disconnect();
     renderer.dispose();
   };
 };

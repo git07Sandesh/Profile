@@ -1,3 +1,4 @@
+
 const savedTheme = localStorage.getItem('theme');
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
@@ -5,6 +6,8 @@ if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
 } else {
   document.documentElement.classList.remove('dark');
 }
+
+
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
