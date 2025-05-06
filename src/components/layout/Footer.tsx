@@ -3,10 +3,10 @@ import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const socialLinks = [
-  { name: 'GitHub', icon: <Github size={20} />, href: 'https://github.com' },
-  { name: 'LinkedIn', icon: <Linkedin size={20} />, href: 'https://linkedin.com' },
-  { name: 'Twitter', icon: <Twitter size={20} />, href: 'https://twitter.com' },
-  { name: 'Email', icon: <Mail size={20} />, href: 'mailto:alex@example.com' },
+  { name: 'GitHub', icon: <Github size={20} />, href: 'https://github.com/git07Sandesh' },
+  { name: 'LinkedIn', icon: <Linkedin size={20} />, href: 'https://www.linkedin.com/in/sandeshbhattarai07/' },
+  { name: 'Twitter', icon: <Twitter size={20} />, href: 'https://x.com/sndy7bh' },
+  { name: 'Email', icon: <Mail size={20} />, href: 'mailto:sandesh1122bhattarai@gmail.com' },
 ];
 
 const Footer: React.FC = () => {
@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               className="text-2xl font-semibold mb-4"
             >
-              Alex<span className="text-primary-600">.</span>
+              Sandesh <span className="text-primary-600">Bhattarai</span>
             </motion.h3>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
           viewport={{ once: true }}
           className="mt-12 pt-8 border-t border-gray-200 dark:border-dark-700 text-center text-gray-600 dark:text-gray-400 text-sm"
         >
-          <p>&copy; {new Date().getFullYear()} Alex Chen. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Sandesh Bhattarai. All rights reserved.</p>
         </motion.div>
       </div>
     </footer>
