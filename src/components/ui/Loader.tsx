@@ -35,7 +35,7 @@ const Loader: React.FC = () => {
         ))}
       </div>
       <p className="loader-text text-xl text-dark-800 dark:text-gray-200 font-light tracking-wider" style={{ opacity: 0 }}>
-        crafting experiences
+        Development in progress...
       </p>
     </div>
   );
