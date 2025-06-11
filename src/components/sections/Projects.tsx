@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 
 const projects = [
   {
-    title: 'Roadmap.io',
+    title: 'Roadmap.io (IN PROGRESS)',
     description: 'A fully interactive AI-powered roadmap app built with React. Users can create and edit roadmaps, add tasks, and track progress.',
     image: 'https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     tags: ['React', 'Node.js', 'MongoDB', 'AI', 'Graph'],
@@ -25,25 +25,36 @@ const projects = [
     },
   },
   {
-    title: 'Interactive Music Player',
-    description: 'A web-based music player with visualizations that react to the audio frequency and amplitude in real-time.',
-    image: 'https://images.pexels.com/photos/1626481/pexels-photo-1626481.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    tags: ['JavaScript', 'Web Audio API', 'Canvas', 'Anime.js'],
+    title: 'Research Paper Parser',
+    description: 'A cross-platform mobile application built with .NET MAUI that allows users to upload research papers (PDF/DOCX), extract key information, and generate concise summaries. Features user authentication, document history tracking, and integration with LLM APIs for intelligent summarization. Developed as a collaborative semester project.',
+    image: 'https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg',
+    tags: ['.NET MAUI', 'C#', 'SQLite', 'GEMINI API', 'PDF Parsing'],
     links: {
       live: '#',
-      github: '#',
+      github: 'https://github.com/git07Sandesh/R.Paper-Parser',
+    },
+  },  
+  {
+    title: 'Chatty – Real-Time Chat App',
+    description: 'A WhatsApp-inspired real-time chat application built with React and Firebase. Features include user authentication, message persistence, and responsive UI. Built as part of a hands-on learning project.',
+    image: 'https://images.pexels.com/photos/3394652/pexels-photo-3394652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    tags: ['React', 'Firebase', 'Authentication', 'Real-Time Database'],
+    links: {
+      live: 'https://chatty-clone.onrender.com/',
+      github: 'https://github.com/git07Sandesh/Chat-App',
     },
   },
   {
-    title: 'AI-powered Task Manager',
-    description: 'A productivity app that uses AI to categorize and prioritize tasks, with natural language processing for task creation.',
-    image: 'https://images.pexels.com/photos/4974914/pexels-photo-4974914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    tags: ['React', 'Node.js', 'NLP', 'MongoDB'],
+    title: "Tara's Restro– Restaurant Landing Page",
+    description: 'A modern and responsive landing page built for a local Nepali restaurant. Highlights the menu, location, and contact options with a clean, accessible UI. Designed to provide visitors with essential information and encourage table reservations.',
+    image: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    tags: ['React', 'JavaScript', 'Responsive Design'],
     links: {
-      live: '#',
-      github: '#',
+      live: 'https://your-everest-spice-site.com',
+      github: 'https://github.com/git07Sandesh/Tara-s-Restro',
     },
-  },
+  }
+    
 ];
 
 const ProjectCard: React.FC<{ project: typeof projects[0]; index: number }> = ({ project, index }) => {
