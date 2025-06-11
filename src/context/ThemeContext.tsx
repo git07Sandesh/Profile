@@ -16,7 +16,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   });
 
-  useEffect(() => {
+  useEffect(() => {``
     document.documentElement.classList.toggle('dark', theme === 'dark');
     localStorage.setItem('theme', theme);
   }, [theme]);
@@ -37,3 +37,4 @@ export const useTheme = (): ThemeContextType => {
   if (!context) throw new Error('useTheme must be used within a ThemeProvider');
   return context;
 };
+``

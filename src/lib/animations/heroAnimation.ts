@@ -1,3 +1,4 @@
+
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
@@ -9,18 +10,22 @@ export const initHeroAnimation = (canvas: HTMLCanvasElement) => {
   const isDark = document.documentElement.classList.contains('dark');
   scene.background = new THREE.Color(isDark ? 0x0a0a0a : 0xfffada);
 
-  // Reference to particle mesh for theme updates
+  // Reference to particle mesh and material for theme updates
   let particlesMesh: THREE.Points | null = null;
+  let particlesMaterial: THREE.PointsMaterial | null = null;
 
   const updateBackground = () => {
-    const isDark = document.documentElement.classList.contains('dark');
-    scene.background = new THREE.Color(isDark ? 0x0a0a0a : 0xfffada);
+    const isDarkNow = document.documentElement.classList.contains('dark');
+    scene.background = new THREE.Color(isDarkNow ? 0x0a0a0a : 0xfffada);
     
-    // Update particle properties when theme changes
-    if (particlesMesh && particlesMesh.material instanceof THREE.PointsMaterial) {
-      const material = particlesMesh.material;
-      material.color = new THREE.Color(isDark ? 0x2563eb : 0x3b82f6);
-      material.blending = isDark ? THREE.AdditiveBlending : THREE.NormalBlending;
+    if (particlesMaterial) {
+      // Update particle material properties
+      particlesMaterial.color = new THREE.Color(isDarkNow ? 0x2563eb : 0x3b82f6);
+      particlesMaterial.blending = isDarkNow ? THREE.AdditiveBlending : THREE.NormalBlending;
+      
+      // For more pronounced color changes, you might want to adjust these:
+      particlesMaterial.opacity = isDarkNow ? 0.9 : 0.8;
+      particlesMaterial.size = isDarkNow ? 2.5 : 2.2;
     }
   };
   
@@ -29,7 +34,6 @@ export const initHeroAnimation = (canvas: HTMLCanvasElement) => {
     attributes: true,
     attributeFilter: ['class'],
   });
-
   const camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
@@ -104,14 +108,15 @@ export const initHeroAnimation = (canvas: HTMLCanvasElement) => {
       particlesGeometry.setAttribute('scale', new THREE.BufferAttribute(scaleArray, 1));
 
       // Create particle material with theme-aware settings
-      const particlesMaterial = new THREE.PointsMaterial({
-        size: 1.5,
+      particlesMaterial = new THREE.PointsMaterial({
+        size: 2.5,
         map: starTexture,
         alphaMap: starTexture,
         transparent: true,
         depthWrite: false,
         blending: isDark ? THREE.AdditiveBlending : THREE.NormalBlending,
-        color: new THREE.Color(isDark ? 0x2563eb : 0x3b82f6),
+        color: new THREE.Color(isDark ? 0x2563eb : 0x3b82f6), // blue for dark, lighter blue for light
+        opacity: isDark ? 0.9 : 0.8,
       });
 
       particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
@@ -122,8 +127,8 @@ export const initHeroAnimation = (canvas: HTMLCanvasElement) => {
       const animate = () => {
         const elapsedTime = clock.getElapsedTime();
         if (particlesMesh) {
-          particlesMesh.rotation.x = elapsedTime * 0.03 + mouse.y * 0.001;
-          particlesMesh.rotation.y = elapsedTime * 0.05 + mouse.x * 0.001;
+          particlesMesh.rotation.x = elapsedTime * 0.3 + mouse.y * 0.009;
+          particlesMesh.rotation.y = elapsedTime * 0.5 + mouse.x * 0.009;
         }
         composer.render();
         requestAnimationFrame(animate);
