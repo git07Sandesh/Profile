@@ -50,7 +50,7 @@ const projects = [
     image: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     tags: ['React', 'JavaScript', 'Responsive Design'],
     links: {
-      live: 'https://your-everest-spice-site.com',
+      live: 'https://tara-s-restro.vercel.app/',
       github: 'https://github.com/git07Sandesh/Tara-s-Restro',
     },
   }
