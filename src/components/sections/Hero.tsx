@@ -32,7 +32,7 @@ const Hero: React.FC = () => {
               Full Stack Developer
             </span>
             <span className="bg-primary-500/10 text-primary-700 dark:text-primary-400 py-1 px-3 rounded-full text-sm font-medium">
-              ML Enthusiast
+              Machine Learning Researcher
             </span>
           </motion.div>
 
@@ -42,11 +42,11 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tight mb-6"
           >
-            Crafting digital <br />
+            Still Figuring Out <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600">
-              experiences
-            </span> that <br />
-            inspire.
+              but building 
+            </span> something better everyday.<br />
+           
           </motion.h1>
 
           <motion.p
@@ -55,8 +55,7 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl"
           >
-            I'm Sandesh, a creative developer focused on building 
-            beautiful, interactive websites and applications with cutting-edge technologies.
+            Hey, I’m Sandesh. I enjoy building websites and apps that are both functional and visually engaging. I'm always exploring new tools and ideas — not just to keep up, but because I love learning and improving with every project.
           </motion.p>
 
           <motion.div
