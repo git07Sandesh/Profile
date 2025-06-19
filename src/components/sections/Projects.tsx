@@ -5,23 +5,13 @@ import { useInView } from 'react-intersection-observer';
 
 const projects = [
   {
-    title: 'Roadmap.io (IN PROGRESS)',
-    description: 'A fully interactive AI-powered roadmap app built with React. Users can create and edit roadmaps, add tasks, and track progress.',
+    title: 'Roadmap.io – AI-Powered Roadmap App',
+    description: "AI-powered resume parser and job-matching platform that visualizes personalized career roadmaps. Built with React and vector embeddings, it extracts key resume tags, matches them with 500+ job roles, and generates an interactive roadmap for upskilling.",
     image: 'https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     tags: ['React', 'Node.js', 'MongoDB', 'AI', 'Graph'],
     links: {
-      live: '#',
-      github: '#',
-    },
-  },
-  {
-    title: 'E-Commerce Dashboard',
-    description: 'A responsive admin dashboard for e-commerce platforms with real-time analytics, inventory management, and sales reporting.',
-    image: 'https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    tags: ['React', 'TypeScript', 'Chart.js', 'Tailwind CSS'],
-    links: {
-      live: '#',
-      github: '#',
+      live: 'https://clusterpath.vercel.app/',
+      github: 'https://github.com/git07Sandesh/frontendRoadmap',
     },
   },
   {
