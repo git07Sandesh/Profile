@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
+import { Anchor, ExternalLink, Github } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 
 const projects = [
   {
+    anchor: 'roadmap',
     title: 'Roadmap.io – AI-Powered Roadmap App',
     description: "AI-powered resume parser and job-matching platform that visualizes personalized career roadmaps. Built with React and vector embeddings, it extracts key resume tags, matches them with 500+ job roles, and generates an interactive roadmap for upskilling.",
     image: 'https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
@@ -15,6 +16,7 @@ const projects = [
     },
   },
   {
+    anchor: 'rpaper',
     title: 'Research Paper Parser',
     description: 'A cross-platform mobile application built with .NET MAUI that allows users to upload research papers (PDF/DOCX), extract key information, and generate concise summaries. Features user authentication, document history tracking, and integration with LLM APIs for intelligent summarization. Developed as a collaborative semester project.',
     image: 'https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg',
@@ -25,6 +27,7 @@ const projects = [
     },
   },  
   {
+    anchor: 'chatty',
     title: 'Chatty – Real-Time Chat App',
     description: 'A WhatsApp-inspired real-time chat application built with React and Firebase. Features include user authentication, message persistence, and responsive UI. Built as part of a hands-on learning project.',
     image: 'https://images.pexels.com/photos/3394652/pexels-photo-3394652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
@@ -35,6 +38,7 @@ const projects = [
     },
   },
   {
+    anchor: 'tara-restro',
     title: "Tara's Restro– Restaurant Landing Page",
     description: 'A modern and responsive landing page built for a local Nepali restaurant. Highlights the menu, location, and contact options with a clean, accessible UI. Designed to provide visitors with essential information and encourage table reservations.',
     image: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
@@ -56,6 +60,7 @@ const ProjectCard: React.FC<{ project: typeof projects[0]; index: number }> = ({
   return (
     <motion.div
       ref={ref}
+      id={project.anchor}
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1 }}

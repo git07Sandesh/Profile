@@ -8,6 +8,7 @@ const navItems = [
   { name: 'About', href: '#about' },
   { name: 'Skills', href: '#skills' },
   { name: 'Projects', href: '#projects' },
+  { name: 'Resume', href: 'https://docs.google.com/document/d/1lJuqW98NybVMewWKhzEyJg3KhgPFxehd/edit?usp=drive_link&ouid=115256112334400049028&rtpof=true&sd=true', external: true, target: '_blank' },
   { name: 'Contact', href: '#contact' },
 ];
 
