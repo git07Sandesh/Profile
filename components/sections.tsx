@@ -2,6 +2,7 @@
 
 import { Container, Section, SectionLabel } from "@/components/primitives";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { Showstopper } from "@/components/showstopper";
 import {
   about,
   awards,
@@ -52,67 +53,49 @@ export function SelectedWorks() {
   const rest = projects.filter((p) => !p.featured);
 
   return (
-    <Section id="work" alt>
-      <Container>
+    <section id="work" className="relative z-[2]">
+      {/* intro label sits on paper, before the dark pinned stage */}
+      <Container className="pt-24 sm:pt-32">
         <SectionLabel n="02">Selected Works</SectionLabel>
+        <p className="max-w-xl text-body-l text-ink-soft">
+          Three projects, each shipped end-to-end. Scroll through the case
+          studies — problem, approach, outcome.
+        </p>
+      </Container>
 
-        <div className="space-y-px border-t border-line">
-          {featured.map((p) => (
-            <Reveal key={p.id}>
+      {/* THE SHOWSTOPPER — pinned, scroll-driven cinematic case studies
+          (reduced-motion → static fallback; 3D lazy-loaded near viewport). */}
+      <div className="mt-12">
+        <Showstopper projects={featured} />
+      </div>
+
+      {/* compact list — remaining projects, no showstopper */}
+      <Container className="py-24 sm:py-32">
+        <p className="mb-6 text-label uppercase tracking-[0.18em] text-ink-soft">
+          More projects
+        </p>
+        <RevealGroup className="grid gap-px border-t border-line sm:grid-cols-2">
+          {rest.map((p) => (
+            <RevealItem key={p.id}>
               <a
                 href={p.links[0]?.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group grid gap-4 border-b border-line py-8 sm:grid-cols-[auto_1fr_auto] sm:items-baseline sm:gap-8"
+                className="group flex h-full flex-col gap-2 border-b border-line bg-paper p-6 transition-colors hover:bg-paper-dim"
               >
-                <span className="text-label tabular-nums text-accent">({p.index})</span>
-                <div>
-                  <h3 className="font-display text-h2 transition-colors group-hover:text-accent">
-                    {p.name}
-                  </h3>
-                  <p className="mt-1 max-w-xl text-body text-ink-soft">{p.tagline}</p>
-                  <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-small text-ink-soft">
-                    {p.metrics.map((m) => (
-                      <span key={m.label}>
-                        <span className="text-ink">{m.value}</span> {m.label}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <span className="hidden text-small text-ink-soft sm:block">{p.year}</span>
+                <span className="font-display text-h3 transition-colors group-hover:text-accent">
+                  {p.name}
+                </span>
+                <span className="text-small text-ink-soft">{p.tagline}</span>
+                <span className="mt-auto pt-3 text-small text-ink-soft">
+                  {p.stack.slice(0, 4).join(" · ")}
+                </span>
               </a>
-            </Reveal>
+            </RevealItem>
           ))}
-        </div>
-
-        {/* compact list — remaining projects, no showstopper */}
-        <div className="mt-16">
-          <p className="mb-6 text-label uppercase tracking-[0.18em] text-ink-soft">
-            More projects
-          </p>
-          <RevealGroup className="grid gap-px border-t border-line sm:grid-cols-2">
-            {rest.map((p) => (
-              <RevealItem key={p.id}>
-                <a
-                  href={p.links[0]?.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex h-full flex-col gap-2 border-b border-line bg-paper p-6 transition-colors hover:bg-paper-dim"
-                >
-                  <span className="font-display text-h3 transition-colors group-hover:text-accent">
-                    {p.name}
-                  </span>
-                  <span className="text-small text-ink-soft">{p.tagline}</span>
-                  <span className="mt-auto pt-3 text-small text-ink-soft">
-                    {p.stack.slice(0, 4).join(" · ")}
-                  </span>
-                </a>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
+        </RevealGroup>
       </Container>
-    </Section>
+    </section>
   );
 }
 
