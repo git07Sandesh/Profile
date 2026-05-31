@@ -71,17 +71,17 @@ export function CaseStudies({ projects }: { projects: Project[] }) {
 
   return (
     <div ref={root} className="relative z-[2]">
-      {/* pinned stage */}
-      <div data-stage className="relative h-screen w-full overflow-hidden bg-ink text-paper">
+      {/* pinned stage — deeper than the page base so the 3D pops */}
+      <div data-stage className="relative h-screen w-full overflow-hidden bg-[#070709] text-ink">
         {/* single 3D element, behind the text */}
-        <div className="pointer-events-none absolute inset-0 opacity-70">
+        <div className="pointer-events-none absolute inset-0 opacity-80">
           <Suspense fallback={null}>
             <Scene progress={progress} />
           </Suspense>
         </div>
 
-        {/* subtle ink scrim so text stays legible over the 3D */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
+        {/* scrim so text stays legible over the 3D */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#070709] via-[#070709]/55 to-transparent" />
 
         {/* progress rail */}
         <div className="absolute left-6 top-1/2 z-10 hidden -translate-y-1/2 flex-col gap-3 sm:left-10 lg:flex">
@@ -89,12 +89,12 @@ export function CaseStudies({ projects }: { projects: Project[] }) {
             <div key={p.id} className="flex items-center gap-3">
               <span
                 className={`h-px transition-all duration-500 ${
-                  i === active ? "w-10 bg-paper" : "w-5 bg-paper/30"
+                  i === active ? "w-10 bg-ink" : "w-5 bg-ink/30"
                 }`}
               />
               <span
                 className={`text-label uppercase tracking-widest transition-colors duration-500 ${
-                  i === active ? "text-paper" : "text-paper/30"
+                  i === active ? "text-ink" : "text-ink/30"
                 }`}
               >
                 {p.index}
@@ -113,13 +113,13 @@ export function CaseStudies({ projects }: { projects: Project[] }) {
                 className="absolute inset-x-0 invisible"
                 style={{ opacity: 0 }}
               >
-                <p className="mb-5 flex items-center gap-3 text-label uppercase tracking-[0.18em] text-paper/60">
-                  <span className="text-[var(--color-accent)]">({p.index})</span>
-                  <span className="h-px w-8 bg-paper/30" aria-hidden />
+                <p className="mb-5 flex items-center gap-3 text-label uppercase tracking-[0.18em] text-ink-soft">
+                  <span className="text-glow">({p.index})</span>
+                  <span className="h-px w-8 bg-line" aria-hidden />
                   {p.role}
                 </p>
                 <h3 className="font-display text-display-l">{p.name}</h3>
-                <p className="mt-3 text-body-l text-paper/80">{p.tagline}</p>
+                <p className="mt-3 text-body-l text-ink-soft">{p.tagline}</p>
 
                 <div className="mt-8 grid gap-5 sm:grid-cols-3">
                   {[
@@ -128,18 +128,18 @@ export function CaseStudies({ projects }: { projects: Project[] }) {
                     ["Outcome", p.outcome],
                   ].map(([label, text]) => (
                     <div key={label}>
-                      <p className="mb-2 text-label uppercase tracking-widest text-paper/50">
+                      <p className="mb-2 text-label uppercase tracking-widest text-ink-soft">
                         {label}
                       </p>
-                      <p className="text-small leading-relaxed text-paper/85">{text}</p>
+                      <p className="text-small leading-relaxed text-ink">{text}</p>
                     </div>
                   ))}
                 </div>
 
                 <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2">
                   {p.metrics.map((m) => (
-                    <span key={m.label} className="text-small text-paper/70">
-                      <span className="font-display text-h3 text-paper">{m.value}</span>{" "}
+                    <span key={m.label} className="text-small text-ink-soft">
+                      <span className="font-display text-h3 text-glow">{m.value}</span>{" "}
                       {m.label}
                     </span>
                   ))}
@@ -152,7 +152,7 @@ export function CaseStudies({ projects }: { projects: Project[] }) {
                       href={l.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="border-b-2 border-[var(--color-accent)] pb-0.5 text-paper transition-opacity hover:opacity-70"
+                      className="border-b-2 border-[var(--color-accent)] pb-0.5 text-ink transition-opacity hover:opacity-70"
                     >
                       {l.label} →
                     </a>
@@ -164,7 +164,7 @@ export function CaseStudies({ projects }: { projects: Project[] }) {
         </Container>
 
         {/* scroll hint */}
-        <div className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-label uppercase tracking-widest text-paper/40">
+        <div className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-label uppercase tracking-widest text-ink/40">
           scroll
         </div>
       </div>

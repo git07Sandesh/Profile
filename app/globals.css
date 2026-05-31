@@ -2,30 +2,34 @@
 
 /*
   Sandesh Bhattarai — portfolio design tokens (Tailwind v4 CSS-first).
-  Editorial system: warm paper + ink + ONE swappable accent.
-  Font CSS vars are injected by next/font in app/layout.tsx:
-    --font-instrument → Instrument Serif (display)
-    --font-geist-sans → Geist (body/UI)
+  DIRECTION: Dark Spatial / Cinematic — deep near-black, soft light text,
+  one glowing violet accent, generous space. (Confident but hireable.)
+
+  Token names are kept stable (paper/ink/line/accent) and REMAPPED to dark
+  values so the whole site reskins from here. "paper" = the dark base surface,
+  "ink" = light text. Font CSS vars injected by next/font in app/layout.tsx.
 */
 
 @theme {
-  /* ---- palette: warm paper + ink ---- */
-  --color-paper: #f5f2eb;
-  --color-paper-dim: #ece7dc;
-  --color-ink: #16150f;
-  --color-ink-soft: #4a463b;
-  --color-line: #dad3c4;
+  /* ---- palette: deep space + light text ---- */
+  --color-paper: #0a0a0c; /* base background (near-black) */
+  --color-paper-dim: #101015; /* alt section surface (slightly raised) */
+  --color-card: #14141b; /* card / panel surface */
+  --color-ink: #ededf2; /* primary text (soft white) */
+  --color-ink-soft: #9a9aa8; /* secondary text */
+  --color-line: #26262f; /* hairlines / borders */
 
-  /* ---- the ONE accent (swap this single value to retheme) ---- */
-  --color-accent: #2540e8; /* cobalt — provisional; A/B vs near-mono later */
-  --color-accent-ink: #ffffff;
+  /* ---- the ONE accent: glowing violet (swap to retheme) ---- */
+  --color-accent: #7c5cff; /* violet */
+  --color-accent-bright: #9d83ff; /* lighter violet for glow/hover */
+  --color-accent-ink: #0a0a0c; /* text on accent */
 
   /* ---- type families ---- */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-instrument), Georgia, "Times New Roman", serif;
 
   /* ---- fluid type scale (ratio ~1.25, clamped) ---- */
-  --text-display-xl: clamp(3.5rem, 9vw, 8rem);
+  --text-display-xl: clamp(3.5rem, 9vw, 8.5rem);
   --text-display-xl--line-height: 0.95;
   --text-display-l: clamp(2.5rem, 6vw, 5rem);
   --text-display-l--line-height: 1;
@@ -40,6 +44,7 @@
 
 html {
   scroll-behavior: smooth;
+  background: var(--color-paper);
 }
 
 body {
@@ -52,14 +57,30 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* faint editorial grain — perf-cheap, decorative only */
+/*
+  Ambient spatial glow — two soft radial pools of violet bleeding from the top,
+  fixed behind content. This is what makes the dark feel "spatial" not flat.
+  Perf-cheap (a single fixed gradient layer, no JS).
+*/
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
-  opacity: 0.025;
+  background:
+    radial-gradient(60vw 50vh at 75% -5%, rgba(124, 92, 255, 0.18), transparent 70%),
+    radial-gradient(50vw 40vh at 10% 5%, rgba(80, 120, 255, 0.1), transparent 70%);
+}
+
+/* very faint grain on top of the glow for texture */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -77,6 +98,30 @@ body::before {
 .font-display {
   font-family: var(--font-display);
   font-weight: 400;
+}
+
+/* ---- helpers ---- */
+
+/* glowing accent text */
+.text-glow {
+  color: var(--color-accent-bright);
+  text-shadow: 0 0 24px rgba(124, 92, 255, 0.45);
+}
+
+/* primary button glow on hover */
+.btn-glow {
+  box-shadow: 0 0 0 rgba(124, 92, 255, 0);
+  transition: box-shadow 0.3s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+.btn-glow:hover {
+  box-shadow: 0 8px 40px rgba(124, 92, 255, 0.4);
+}
+
+/* glassy card surface */
+.glass {
+  background: color-mix(in srgb, var(--color-card) 70%, transparent);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-line);
 }
 
 @media (prefers-reduced-motion: reduce) {

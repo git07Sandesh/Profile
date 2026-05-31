@@ -68,7 +68,7 @@ export function Hero({ start }: { start: boolean }) {
             <Magnetic>
               <a
                 href="#work"
-                className="group inline-flex items-center gap-2 rounded-sm bg-ink px-6 py-3 text-small font-medium text-paper transition-colors hover:bg-accent"
+                className="btn-glow group inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 text-small font-medium text-[var(--color-accent-ink)] hover:bg-[var(--color-accent-bright)]"
               >
                 See the work
                 <span className="transition-transform group-hover:translate-x-1" aria-hidden>

@@ -81,7 +81,7 @@ export function SelectedWorks() {
                 href={p.links[0]?.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-full flex-col gap-2 border-b border-line bg-paper p-6 transition-colors hover:bg-paper-dim"
+                className="glass group flex h-full flex-col gap-2 rounded-md p-6 transition-colors hover:border-[var(--color-accent)]"
               >
                 <span className="font-display text-h3 transition-colors group-hover:text-accent">
                   {p.name}
@@ -194,7 +194,7 @@ export function Contact() {
           <div className="mt-10 flex flex-wrap items-center gap-6">
             <a
               href={`mailto:${profile.email}`}
-              className="rounded-sm bg-ink px-6 py-3 text-small font-medium text-paper transition-colors hover:bg-accent"
+              className="btn-glow rounded-md bg-accent px-6 py-3 text-small font-medium text-[var(--color-accent-ink)] hover:bg-[var(--color-accent-bright)]"
             >
               {profile.email}
             </a>
