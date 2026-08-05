@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /*
-  Sandesh Bhattarai — portfolio design tokens (Tailwind v4 CSS-first).
-  DIRECTION: Dark Spatial / Cinematic — deep near-black, soft light text,
+  Sandesh Bhattarai: portfolio design tokens (Tailwind v4 CSS-first).
+  DIRECTION: Dark Spatial / Cinematic: deep near-black, soft light text,
   one glowing violet accent, generous space. (Confident but hireable.)
 
   Token names are kept stable (paper/ink/line/accent) and REMAPPED to dark
@@ -71,7 +71,7 @@ body {
 }
 
 /*
-  Ambient spatial glow — two soft radial pools of violet bleeding from the top,
+  Ambient spatial glow: two soft radial pools of violet bleeding from the top,
   fixed behind content. This is what makes the dark feel "spatial" not flat.
   Perf-cheap (a single fixed gradient layer, no JS).
 */
@@ -193,7 +193,7 @@ html[data-os="on"] .editorial-root {
     var(--color-os-chassis-hi) var(--color-os-chassis-lo);
 }
 
-/* hatched title bar — the workstation tell */
+/* hatched title bar: the workstation tell */
 .os-hatch {
   background-image: repeating-linear-gradient(
     90deg,
