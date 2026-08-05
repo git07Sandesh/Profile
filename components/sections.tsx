@@ -32,10 +32,10 @@ export function About() {
             </div>
           </div>
           <Reveal delay={0.1}>
-            {/* single owner-image placeholder — swap when a photo is provided */}
+            {/* single owner-image placeholder: swap when a photo is provided */}
             <div className="aspect-[4/5] w-full overflow-hidden rounded-sm border border-line bg-paper-dim">
               <div className="flex h-full items-center justify-center text-small text-ink-soft">
-                portrait — placeholder
+                portrait placeholder
               </div>
             </div>
           </Reveal>
@@ -59,17 +59,17 @@ export function SelectedWorks() {
         <SectionLabel n="02">Selected Works</SectionLabel>
         <p className="max-w-xl text-body-l text-ink-soft">
           Three projects, each shipped end-to-end. Scroll through the case
-          studies — problem, approach, outcome.
+          studies: problem, approach, outcome.
         </p>
       </Container>
 
-      {/* THE SHOWSTOPPER — pinned, scroll-driven cinematic case studies
+      {/* THE SHOWSTOPPER: pinned, scroll-driven cinematic case studies
           (reduced-motion → static fallback; 3D lazy-loaded near viewport). */}
       <div className="mt-12">
         <Showstopper projects={featured} />
       </div>
 
-      {/* compact list — remaining projects, no showstopper */}
+      {/* compact list: remaining projects, no showstopper */}
       <Container className="py-24 sm:py-32">
         <p className="mb-6 text-label uppercase tracking-[0.18em] text-ink-soft">
           More projects
@@ -167,7 +167,7 @@ export function Experience() {
             {awards.map((a) => (
               <RevealItem key={a}>
                 <p className="flex gap-3 text-body text-ink-soft">
-                  <span className="text-accent">—</span>
+                  <span className="text-accent">·</span>
                   {a}
                 </p>
               </RevealItem>

@@ -49,7 +49,7 @@ function useOsEligible() {
 }
 
 /**
- * The editorial site is always server-rendered — it is the document crawlers
+ * The editorial site is always server-rendered: it is the document crawlers
  * and phones get. The workstation OS mounts over it as an enhancement on wide
  * viewports when motion is welcome.
  */

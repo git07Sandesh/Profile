@@ -11,7 +11,7 @@ const links = [
   { label: "Contact", href: "#contact" },
 ];
 
-/** Minimal sticky navbar — gains a hairline + paper backdrop after scroll. */
+/** Minimal sticky navbar: gains a hairline + paper backdrop after scroll. */
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 

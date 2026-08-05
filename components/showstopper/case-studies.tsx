@@ -12,13 +12,13 @@ const Scene = lazy(() => import("@/components/showstopper/scene"));
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /**
- * THE SHOWSTOPPER (Phase 3) — the 3 featured projects as one pinned, scroll-
+ * THE SHOWSTOPPER (Phase 3): the 3 featured projects as one pinned, scroll-
  * driven cinematic sequence. ONE pinned container holds a scrubbed GSAP timeline
  * that cross-fades between case-study "scenes" (problem → approach → outcome).
  * Text lives in normal DOM layers above the single R3F element, so it stays
  * crisp and readable at every scroll position.
  *
- * The 3D <Scene> is lazy() + Suspense — its bundle is only fetched when this
+ * The 3D <Scene> is lazy() + Suspense: its bundle is only fetched when this
  * component mounts (the parent only mounts it once near-viewport).
  */
 export function CaseStudies({ projects }: { projects: Project[] }) {
@@ -71,7 +71,7 @@ export function CaseStudies({ projects }: { projects: Project[] }) {
 
   return (
     <div ref={root} className="relative z-[2]">
-      {/* pinned stage — deeper than the page base so the 3D pops */}
+      {/* pinned stage: deeper than the page base so the 3D pops */}
       <div data-stage className="relative h-screen w-full overflow-hidden bg-[#070709] text-ink">
         {/* single 3D element, behind the text */}
         <div className="pointer-events-none absolute inset-0 opacity-80">
@@ -173,7 +173,7 @@ export function CaseStudies({ projects }: { projects: Project[] }) {
 }
 
 /**
- * Static, normally-scrolling fallback — used under prefers-reduced-motion (and
+ * Static, normally-scrolling fallback: used under prefers-reduced-motion (and
  * as SSR output). Full content, no pin, no 3D, fully readable.
  */
 export function CaseStudiesStatic({ projects }: { projects: Project[] }) {

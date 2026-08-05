@@ -6,7 +6,7 @@ import { useMemo } from "react";
 
 /**
  * The single 3D moment of the entire site (Phase 3 only).
- * A quiet, slowly-distorting icosahedron that sits BEHIND the case-study text —
+ * A quiet, slowly-distorting icosahedron that sits BEHIND the case-study text,
  * supportive, never overwhelming. frameloop="demand" keeps it cheap; the whole
  * Canvas is lazy-loaded by the parent so it never blocks first paint.
  *

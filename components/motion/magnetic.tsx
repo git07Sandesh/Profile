@@ -5,7 +5,7 @@ import { ReactNode, useRef } from "react";
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 
 /**
- * Magnetic wrapper — the child leans toward the pointer with spring physics and
+ * Magnetic wrapper: the child leans toward the pointer with spring physics and
  * radius falloff. Uses motion values (no re-render). Inert under reduced motion.
  */
 export function Magnetic({

@@ -11,7 +11,7 @@ import dynamic from "next/dynamic";
  * - Under reduced motion (or before first mount): render the static fallback.
  * - Otherwise, once the section nears the viewport, dynamically import the
  *   GSAP + R3F case-study sequence. This keeps the heavy 3D/GSAP bundle out of
- *   the initial page load — it's only fetched when the user approaches.
+ *   the initial page load: it's only fetched when the user approaches.
  */
 const CaseStudies = dynamic(
   () => import("@/components/showstopper/case-studies").then((m) => m.CaseStudies),

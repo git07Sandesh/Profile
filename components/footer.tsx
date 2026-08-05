@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Container } from "@/components/primitives";
 import { profile } from "@/lib/content";
 
-/** Live local time — the small human footer detail (like the reference sites). */
+/** Live local time: the small human footer detail (like the reference sites). */
 function LocalTime() {
   const [time, setTime] = useState<string | null>(null);
 

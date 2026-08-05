@@ -9,7 +9,7 @@ export const profile = {
   location: "Hattiesburg, MS",
   timezone: "America/Chicago",
   blurb:
-    "Full-stack software engineer who ships end-to-end — production work across React, Next.js, Python, and Flutter, plus award-winning privacy-preserving ML research.",
+    "Full-stack software engineer who ships end-to-end: production work across React, Next.js, Python, and Flutter, plus award-winning privacy-preserving ML research.",
   email: "sandesh1122bhattarai@gmail.com",
   resumeUrl: "/Sandesh_Bhattarai_Resume.pdf",
   socials: [
@@ -21,7 +21,7 @@ export const profile = {
 
 export const about = {
   lead:
-    "I build software end-to-end — from blank repo to production under deadline — and I like the parts most people avoid: the data layer, the edge cases, the performance budget.",
+    "I build software end-to-end, from blank repo to production under deadline, and I like the parts most people avoid: the data layer, the edge cases, the performance budget.",
   body: [
     "I'm a CS Honors graduate of the University of Southern Mississippi (4.00 GPA, May 2026), currently a founding engineer at Suga and a team lead at Arroyodev shipping the Illumibot ecosystem to 10,000+ users.",
     "My research on robust, encrypted federated learning took 1st place at the USM Undergraduate Research Symposium. Whether it's a real-time inbox, a cross-platform Flutter app, or homomorphic encryption, I care about the same thing: software that works, owned end-to-end.",
@@ -58,13 +58,13 @@ export const projects: Project[] = [
     index: "01",
     name: "Transworld Floor Plan",
     tagline: "A static PDF, reborn as a live interactive exhibit map.",
-    role: "Solo — blank repo to production under hard deadline (Arroyodev)",
+    role: "Solo, blank repo to production under hard deadline (Arroyodev)",
     year: "2026",
     stack: ["Next.js", "TypeScript", "Firebase", "Vercel"],
     problem:
-      "A major trade show's exhibit floor plan was a static PDF — attendees couldn't navigate it, and it generated no sponsorship surface.",
+      "A major trade show's exhibit floor plan was a static PDF. Attendees couldn't navigate it, and it generated no sponsorship surface.",
     approach:
-      "Built a live, searchable, interactive exhibit map from scratch — booth search, sponsor placements, responsive — replacing the PDF entirely.",
+      "Built a live, searchable, interactive exhibit map from scratch (booth search, sponsor placements, responsive), replacing the PDF entirely.",
     outcome:
       "Launched with zero downtime under a hard deadline and turned a flat document into a revenue-generating, navigable experience.",
     metrics: [
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     year: "2025",
     stack: ["Next.js", "Fastify", "Supabase", "Gemini", "Socket.IO", "Stripe"],
     problem:
-      "Support automation traditionally needs a knowledge base, a rules engine, and developers — brittle and high-config.",
+      "Support automation traditionally needs a knowledge base, a rules engine, and developers: brittle and high-config.",
     approach:
       "Record an agent solving a ticket once → Gemini synthesizes an executable workflow → a human approves (versioned, with rollback) → it runs across 11 platform integrations. Chrome-extension capture, Next.js builder, Fastify + Supabase engine, realtime voice/chat/email.",
     outcome:
@@ -102,11 +102,11 @@ export const projects: Project[] = [
     index: "03",
     name: "ClusterPath",
     tagline: "Upload a résumé. Get an ML-clustered skills graph and a career roadmap.",
-    role: "Solo — full-stack",
+    role: "Solo, full-stack",
     year: "2025",
     stack: ["React", "FastAPI", "Supabase pgvector", "Gemini", "KeyBERT", "React Flow"],
     problem:
-      "Career direction is opaque — which skills to learn, which roles actually fit your résumé?",
+      "Career direction is opaque. Which skills to learn? Which roles actually fit your résumé?",
     approach:
       "Parse the résumé (PyMuPDF), embed sections (Gemini) and extract keywords (KeyBERT), match jobs via Supabase pgvector, cluster with k-means, then render an AI roadmap and an interactive skills/job graph.",
     outcome:
@@ -127,7 +127,7 @@ export const projects: Project[] = [
     id: "msbon",
     index: "04",
     name: "MSBON Transcript Verification",
-    tagline: "AI-assisted nursing-transcript fraud detection — a capstone for a real board.",
+    tagline: "AI-assisted nursing-transcript fraud detection, a capstone for a real board.",
     role: "Engineering Lead (Team Nexus)",
     year: "2026",
     stack: ["FastAPI", "Gemini", "Tesseract", "Supabase", "React"],
@@ -146,7 +146,7 @@ export const projects: Project[] = [
     index: "05",
     name: "Robust & Encrypted Federated Learning",
     tagline: "Byzantine-robust FL over CKKS homomorphically-encrypted model updates.",
-    role: "Solo researcher — 1st place, USM Symposium",
+    role: "Solo researcher, 1st place at the USM Symposium",
     year: "2025",
     stack: ["PyTorch", "Flower", "TenSEAL (CKKS)", "W&B"],
     problem: "",
@@ -161,7 +161,7 @@ export const projects: Project[] = [
     index: "06",
     name: "Tara's Restro",
     tagline: "MERN ordering site shipped for a real Kathmandu restaurant.",
-    role: "Solo — full-stack",
+    role: "Solo, full-stack",
     year: "2025",
     stack: ["React", "Node", "MongoDB", "Google OAuth"],
     problem: "",
@@ -186,7 +186,7 @@ export const experience = [
     role: "Software Development Associate & Team Lead",
     org: "Arroyodev LLC",
     href: "https://arroyodev.com/",
-    period: "Aug 2025 — Present",
+    period: "Since Aug 2025",
     summary:
       "Full-stack engineering for Illumibot.ai (10,000+ users) across a multi-repo microservices architecture. Joint co-lead on the core app; shipped the flagship Transworld Floor Plan solo.",
   },
@@ -194,16 +194,16 @@ export const experience = [
     role: "Founding Engineer",
     org: "Suga",
     href: "https://www.suga.cx/",
-    period: "Oct 2025 — Present",
+    period: "Since Oct 2025",
     summary:
-      "Building a zero-config, AI-powered workflow OS for customer support — session-to-workflow synthesis with human-in-the-loop approval across 11 integrations. 2nd of 30+ at the USM-VOXO Hackathon.",
+      "Building a zero-config, AI-powered workflow OS for customer support: session-to-workflow synthesis with human-in-the-loop approval across 11 integrations. 2nd of 30+ at the USM-VOXO Hackathon.",
   },
 ];
 
 export const awards = [
-  "1st Place — USM Undergraduate Research Symposium (Cybersecurity, 1st of 50+)",
+  "1st Place, USM Undergraduate Research Symposium (Cybersecurity, 1st of 50+)",
   "Full-Tuition & Housing Scholarship (~$60k)",
   "Honors Keystone Award ($2k)",
   "Eagle SPUR Research Grant ($1.5k)",
-  "USM-VOXO Hackathon — 2nd Place ($2.5k)",
+  "USM-VOXO Hackathon, 2nd Place ($2.5k)",
 ];
