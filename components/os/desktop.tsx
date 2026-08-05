@@ -5,7 +5,8 @@ import { AnimatePresence } from "framer-motion";
 import { findNode, root, type FsNode } from "@/lib/filesystem";
 import { profile } from "@/lib/content";
 import { Window } from "./wm/window";
-import { FileIcon, FolderIcon, KnowMeIcon } from "./icons";
+import { NodeIcon } from "./icons";
+import { Screensaver } from "./screensaver";
 import {
   TASKBAR_H,
   initialWm,
@@ -48,16 +49,10 @@ export function Desktop({
     [],
   );
 
-  // A deep link wins outright. Otherwise open the flagship case study first,
-  // then know-me on top of it, so closing the intro reveals work already loaded.
+  // A deep link wins outright; otherwise know-me is the only thing pre-opened.
   useEffect(() => {
     const wanted = new URLSearchParams(window.location.search).get("path");
-    if (wanted && findNode(wanted)) {
-      open(wanted);
-      return;
-    }
-    open("/projects/transworld");
-    open("/know-me");
+    open(wanted && findNode(wanted) ? wanted : "/know-me");
   }, [open]);
 
   const top = useMemo(
@@ -80,11 +75,14 @@ export function Desktop({
 
   return (
     <div className="os-root">
+      {/* Full height, behind the taskbar too, so its glass has something to refract. */}
+      <div className="os-wallpaper" aria-hidden />
+      <Screensaver frozen={wm.wins.some((w) => w.maximized)} />
+
       <div
         className="absolute inset-x-0 top-0 overflow-hidden"
         style={{ height: bounds.h }}
       >
-        <div className="os-wallpaper" aria-hidden />
         <DesktopIcons nodes={icons} onOpen={open} />
 
         <AnimatePresence>
@@ -143,14 +141,8 @@ function DesktopIcons({
             }}
             className="group flex w-full flex-col items-center gap-1 rounded-lg p-2 text-center transition-colors hover:bg-white/12"
           >
-            <span className="size-8 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
-              {n.icon === "know-me" ? (
-                <KnowMeIcon />
-              ) : n.type === "dir" ? (
-                <FolderIcon />
-              ) : (
-                <FileIcon />
-              )}
+            <span className="size-9 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
+              <NodeIcon node={n} />
             </span>
             <span className="break-all font-mono text-[11px] leading-tight text-white/85 [text-shadow:0_1px_4px_rgba(0,0,0,0.7)]">
               {n.name}
@@ -216,7 +208,7 @@ function Taskbar({
         ))}
       </ul>
 
-      {/* Always reachable — never buried in the tree. */}
+      {/* Always reachable: never buried in the tree. */}
       <button
         type="button"
         onClick={() => onOpen("/resume.pdf")}
@@ -231,7 +223,7 @@ function Taskbar({
       >
         contact
       </button>
-      {/* Recessed LCD — phosphor only reads against a dark surface. */}
+      {/* Recessed LCD: phosphor only reads against a dark surface. */}
       <span className="os-readout shrink-0 rounded-md border border-white/10 bg-black/35 px-2 py-0.5 text-[11px] tabular-nums">
         {clock}
       </span>
