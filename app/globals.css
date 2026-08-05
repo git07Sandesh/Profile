@@ -24,9 +24,22 @@
   --color-accent-bright: #9d83ff; /* lighter violet for glow/hover */
   --color-accent-ink: #0a0a0c; /* text on accent */
 
+  /* ---- workstation OS skin (desktop only; the editorial view never uses these) ---- */
+  --color-os-chassis: #c8c4b8;
+  --color-os-chassis-hi: #e2ded2;
+  --color-os-chassis-lo: #8f8b80;
+  --color-os-slate: #2b3a3f;
+  --color-os-slate-lo: #1f2a2e;
+  --color-os-void: #1a2226;
+  --color-os-amber: #e08a2e;
+  --color-os-phosphor: #7ce0b0;
+  --color-os-ink: #14181a;
+  --color-os-ink-soft: #5c605d;
+
   /* ---- type families ---- */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-instrument), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 
   /* ---- fluid type scale (ratio ~1.25, clamped) ---- */
   --text-display-xl: clamp(3.5rem, 9vw, 8.5rem);
@@ -135,4 +148,119 @@ body::after {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* ===================== workstation OS ===================== */
+
+/* Set in <head> before first paint, then kept in sync by React on resize.
+   With JS off the attribute never appears, so the editorial view stays. */
+html[data-os="on"] .editorial-root {
+  display: none;
+}
+
+.os-root {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  background: var(--color-os-void);
+  color: var(--color-os-ink);
+}
+
+.os-root :focus-visible {
+  outline: 2px solid var(--color-os-amber);
+  outline-offset: 1px;
+  border-radius: 0;
+}
+
+.os-root ::selection {
+  background: var(--color-os-amber);
+  color: var(--color-os-ink);
+}
+
+/* chunky bevels, lit from the top-left */
+.bevel-out {
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--color-os-chassis-hi) var(--color-os-chassis-lo)
+    var(--color-os-chassis-lo) var(--color-os-chassis-hi);
+}
+
+.bevel-in {
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--color-os-chassis-lo) var(--color-os-chassis-hi)
+    var(--color-os-chassis-hi) var(--color-os-chassis-lo);
+}
+
+/* hatched title bar — the workstation tell */
+.os-hatch {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--color-os-slate) 0 2px,
+    var(--color-os-slate-lo) 2px 4px
+  );
+}
+
+/* phosphor instrument readout in the properties pane */
+.os-readout {
+  font-family: var(--font-mono);
+  color: var(--color-os-phosphor);
+  text-shadow: 0 0 10px rgba(124, 224, 176, 0.35);
+}
+
+/* ---- the modern half: glass lives on the desktop layer only ---- */
+
+.os-wallpaper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #12181b;
+}
+
+/* Coloured pools give the glass something to actually refract. */
+.os-wallpaper::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(38vw 42vh at 20% 18%, rgba(124, 92, 255, 0.3), transparent 62%),
+    radial-gradient(34vw 38vh at 82% 26%, rgba(45, 212, 191, 0.22), transparent 62%),
+    radial-gradient(40vw 40vh at 62% 92%, rgba(224, 138, 46, 0.2), transparent 62%),
+    radial-gradient(30vw 34vh at 8% 88%, rgba(80, 120, 255, 0.16), transparent 62%);
+  animation: os-drift 48s ease-in-out infinite alternate;
+}
+
+.os-wallpaper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes os-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-4%, 3%, 0) scale(1.1);
+  }
+}
+
+.os-glass {
+  background: color-mix(in srgb, white 8%, transparent);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid color-mix(in srgb, white 16%, transparent);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 color-mix(in srgb, white 22%, transparent);
+}
+
+.os-glass-bar {
+  background: color-mix(in srgb, #0e1416 62%, transparent);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border-top: 1px solid color-mix(in srgb, white 14%, transparent);
 }

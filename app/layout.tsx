@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 // Body / UI face — quiet neo-grotesque. Self-hosted via next/font (no render-block).
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// Utility face — paths, filenames, and the OS instrument readouts.
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -35,15 +42,25 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
+// Decides the OS-vs-editorial view before first paint so neither one flashes.
+// Mirrored by useOsEligible() in components/site.tsx, which owns it after mount.
+const osProbe = `try{if(matchMedia('(min-width:1024px)').matches&&matchMedia('(prefers-reduced-motion: no-preference)').matches)document.documentElement.dataset.os='on'}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
+    // suppressHydrationWarning: the probe below stamps data-os on <html> before
+    // React hydrates, so the server markup intentionally differs by that attribute.
     <html
       lang="en"
-      className={`${geistSans.variable} ${instrumentSerif.variable}`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <script dangerouslySetInnerHTML={{ __html: osProbe }} />
+        {children}
+      </body>
     </html>
   );
 }
