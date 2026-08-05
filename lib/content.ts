@@ -86,11 +86,11 @@ export const projects: Project[] = [
     problem:
       "Support automation traditionally needs a knowledge base, a rules engine, and developers: brittle and high-config.",
     approach:
-      "Record an agent solving a ticket once → Gemini synthesizes an executable workflow → a human approves (versioned, with rollback) → it runs across 11 platform integrations. Chrome-extension capture, Next.js builder, Fastify + Supabase engine, realtime voice/chat/email.",
+      "Record an agent solving a ticket once → Gemini synthesizes an executable workflow → a human approves (versioned, with rollback) → it runs across 8 third-party integrations and 10 support channels. Chrome-extension capture, Next.js builder, Fastify + Supabase engine, realtime voice/chat/email.",
     outcome:
       "A zero-config workflow OS with human-in-the-loop approval that eliminates AI-hallucination risk.",
     metrics: [
-      { value: "11", label: "platform integrations" },
+      { value: "8 / 10", label: "integrations / channels" },
       { value: "2nd / 30+", label: "USM-VOXO Hackathon" },
       { value: "0-config", label: "no rules engine" },
     ],
@@ -118,7 +118,7 @@ export const projects: Project[] = [
     ],
     links: [
       { label: "Live", href: "https://clusterpath.vercel.app/" },
-      { label: "Code", href: "https://github.com/git07Sandesh/clusterpath-web" },
+      { label: "Code", href: "https://github.com/git07Sandesh/clusterpath-api" },
     ],
     featured: true,
   },
