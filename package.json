@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "capture": "tsx scripts/capture.mts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -27,7 +28,9 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.184.1",
+    "playwright": "^1.62.1",
     "tailwindcss": "^4",
+    "tsx": "^4.23.8",
     "typescript": "^5"
   }
 }
