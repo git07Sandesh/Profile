@@ -1,48 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const NODES = 52;
 const RADIUS = 0.42;
-const RIPPLE_MS = 900; // tune on real hardware: faster strobes, slower vanishes
-const EDGE_ALPHA = 0.15; // icon column is masked and windows are opaque, so only the glass bar overlaps
-const IDLE_MS = 45_000;
-const IDLE_REST = 0.5;
+const RIPPLE_MS = 900;
+const EDGE_ALPHA = 0.18;
 const ICON_COLUMN = 130;
 
-/** Ramps the field up once the desk is abandoned, so it is faint while anyone reads. */
-function useIdleRamp(delay = IDLE_MS) {
-  const [idle, setIdle] = useState(false);
-
-  useEffect(() => {
-    let t: ReturnType<typeof setTimeout>;
-    const arm = () => {
-      setIdle(false);
-      clearTimeout(t);
-      t = setTimeout(() => setIdle(true), delay);
-    };
-    const events = ["pointermove", "keydown", "pointerdown"] as const;
-    arm();
-    for (const e of events) addEventListener(e, arm, { passive: true });
-    return () => {
-      clearTimeout(t);
-      for (const e of events) removeEventListener(e, arm);
-    };
-  }, [delay]);
-
-  return idle;
-}
-
 /**
- * Secure aggregation as a screensaver: client nodes drift, and in slow rounds
- * their edges to a wandering centroid brighten in an outward ripple.
+ * Live wallpaper: client nodes drift, and in slow rounds their edges to a
+ * wandering centroid brighten in an outward ripple. Secure aggregation, running
+ * continuously behind the desktop.
  */
-export function Screensaver({ frozen = false }: { frozen?: boolean }) {
+export function AggregationField({ paused = false }: { paused?: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null);
-  const target = useRef(IDLE_REST);
-  const idle = useIdleRamp();
-
-  target.current = frozen ? 0 : idle ? 1 : IDLE_REST;
+  const halted = useRef(paused);
+  halted.current = paused;
 
   useEffect(() => {
     const cv = ref.current;
@@ -64,7 +38,6 @@ export function Screensaver({ frozen = false }: { frozen?: boolean }) {
     let h = 0;
     let raf = 0;
     let last = 0;
-    let amp = IDLE_REST;
 
     const size = () => {
       w = cv.clientWidth;
@@ -77,12 +50,13 @@ export function Screensaver({ frozen = false }: { frozen?: boolean }) {
     const frame = (t: number) => {
       if (animate) raf = requestAnimationFrame(frame);
       if (document.hidden || t - last < 33) return;
-      const dt = t - last;
+      const dt = Math.min(t - last, 100);
       last = t;
 
-      amp += (target.current - amp) * 0.05;
+      // Nothing to see when a window covers the desktop, so skip the work.
+      if (halted.current) return;
+
       ctx.clearRect(0, 0, w, h);
-      if (amp < 0.01) return;
 
       const cx = (0.5 + Math.sin(t / 21000) * 0.16) * w;
       const cy = (0.5 + Math.cos(t / 17000) * 0.12) * h;
@@ -101,11 +75,10 @@ export function Screensaver({ frozen = false }: { frozen?: boolean }) {
         if (d > RADIUS) continue;
 
         // Floored so the constellation is always present and the round reads as
-        // a wave travelling through it, rather than edges blinking in and out.
+        // a wave travelling through it, not edges blinking in and out.
         const wave = 0.55 + 0.45 * Math.sin(t / RIPPLE_MS - d * 14);
         const falloff = 0.35 + 0.65 * (1 - d / RADIUS);
-        const a = falloff * wave * EDGE_ALPHA * amp;
-        if (a <= 0.002) continue;
+        const a = falloff * wave * EDGE_ALPHA;
 
         ctx.strokeStyle = `rgba(124,224,176,${a})`;
         ctx.beginPath();
@@ -113,7 +86,7 @@ export function Screensaver({ frozen = false }: { frozen?: boolean }) {
         ctx.lineTo(cx, cy);
         ctx.stroke();
 
-        ctx.fillStyle = `rgba(124,224,176,${Math.min(a * 2.2, 0.24)})`;
+        ctx.fillStyle = `rgba(124,224,176,${Math.min(a * 2.2, 0.28)})`;
         ctx.fillRect(px - 1, py - 1, 2, 2);
       }
     };

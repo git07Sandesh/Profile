@@ -6,7 +6,7 @@ import { findNode, root, type FsNode } from "@/lib/filesystem";
 import { profile } from "@/lib/content";
 import { Window } from "./wm/window";
 import { NodeIcon } from "./icons";
-import { Screensaver } from "./screensaver";
+import { AggregationField } from "./aggregation-field";
 import {
   TASKBAR_H,
   initialWm,
@@ -77,7 +77,7 @@ export function Desktop({
     <div className="os-root">
       {/* Full height, behind the taskbar too, so its glass has something to refract. */}
       <div className="os-wallpaper" aria-hidden />
-      <Screensaver frozen={wm.wins.some((w) => w.maximized)} />
+      <AggregationField paused={wm.wins.some((w) => w.maximized)} />
 
       <div
         className="absolute inset-x-0 top-0 overflow-hidden"
