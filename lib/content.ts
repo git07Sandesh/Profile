@@ -23,10 +23,18 @@ export const about = {
   lead:
     "I build software end-to-end — from blank repo to production under deadline — and I like the parts most people avoid: the data layer, the edge cases, the performance budget.",
   body: [
-    "I'm a senior CS Honors student at the University of Southern Mississippi (4.00 GPA, graduating May 2026), currently a founding engineer at Suga and a team lead at Arroyodev shipping the Illumibot ecosystem to 10,000+ users.",
+    "I'm a CS Honors graduate of the University of Southern Mississippi (4.00 GPA, May 2026), currently a founding engineer at Suga and a team lead at Arroyodev shipping the Illumibot ecosystem to 10,000+ users.",
     "My research on robust, encrypted federated learning took 1st place at the USM Undergraduate Research Symposium. Whether it's a real-time inbox, a cross-platform Flutter app, or homomorphic encryption, I care about the same thing: software that works, owned end-to-end.",
   ],
 };
+
+/** Facts already stated in about/experience/awards, structured for the bio readout strip. */
+export const highlights = [
+  { value: "4.00", label: "GPA · CS Honors" },
+  { value: "10,000+", label: "users shipped to" },
+  { value: "1st", label: "USM Research Symposium" },
+  { value: "2nd", label: "USM-VOXO Hackathon" },
+];
 
 export type Project = {
   id: string;

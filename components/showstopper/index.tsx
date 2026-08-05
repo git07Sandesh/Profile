@@ -44,14 +44,14 @@ export function Showstopper({ projects }: { projects: Project[] }) {
     return <CaseStudiesStatic projects={projects} />;
   }
 
+  // Static case studies are the SSR/pre-scroll render, so the featured projects
+  // are always in the HTML; the animated version swaps in near the viewport.
   return (
     <div ref={ref}>
       {near ? (
         <CaseStudies projects={projects} />
       ) : (
-        // lightweight placeholder occupying ~1 viewport so layout is stable
-        // and the IntersectionObserver has something to observe
-        <div className="min-h-screen" aria-hidden />
+        <CaseStudiesStatic projects={projects} />
       )}
     </div>
   );
