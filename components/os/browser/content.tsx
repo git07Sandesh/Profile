@@ -2,6 +2,7 @@
 
 import type { FsNode } from "@/lib/filesystem";
 import { about, awards, experience, highlights, profile } from "@/lib/content";
+import { architectureDocs } from "@/lib/architecture.generated";
 import { NodeIcon, PdfIcon } from "../icons";
 import { ExternalIcon, MailIcon, iconForLabel } from "../brand-icons";
 
@@ -31,6 +32,8 @@ export function Content({
         <FolderView node={node} onOpen={onOpen} />
       ) : v.kind === "about" ? (
         <AboutView />
+      ) : v.kind === "architecture" ? (
+        <ArchitectureView project={v.project} />
       ) : v.kind === "project" ? (
         <>
           <Eyebrow>
@@ -286,6 +289,15 @@ function AboutView() {
       </section>
     </>
   );
+}
+
+/** Body is pre-rendered at build time from docs/architecture/*.md, so it is our own trusted markup. */
+function ArchitectureView({ project }: { project: string }) {
+  const html = architectureDocs[project];
+  if (!html) {
+    return <p className="font-mono text-[12px] text-os-ink-soft">No architecture doc yet.</p>;
+  }
+  return <div className="os-doc max-w-3xl" dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
 function PdfView({ label, href }: { label: string; href: string }) {

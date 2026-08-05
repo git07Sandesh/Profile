@@ -1,0 +1,24 @@
+flowchart TD
+    AG["Support agent<br/>resolves one ticket manually"]
+
+    AG --> EXT["Chrome MV3 extension<br/>DOM capture, screenshots<br/>multi-strategy selectors"]
+    EXT -->|"POST /v1/automation/store-session<br/>no auth"| BE
+    EXT -.->|"redirect with session id"| FE
+
+    FE["Next.js 16 dashboard<br/>Supabase Auth bearer"]
+    FE <-->|"REST /v1 + Socket.IO"| BE
+
+    BE["Fastify 5 API"]
+    BE --> SYN["Session analysis<br/>Gemini synthesis"]
+    SYN --> DRAFT["Draft workflow"]
+    DRAFT --> HUM{"Human approval"}
+    HUM -->|approved| VER["Versioned workflow<br/>with rollback"]
+    HUM -->|rejected| DRAFT
+
+    VER --> ENG["Workflow engine<br/>condition eval, templating<br/>stop / skip / retry"]
+    ENG --> Q[["BullMQ on Redis"]]
+    Q --> CONN["8 connectors<br/>Google x5, Slack, Notion, Trello"]
+
+    BE --> SB[("Supabase Postgres<br/>service role")]
+    BE --> RT["Socket.IO<br/>/chat /inbox /calls"]
+    RT --> CH["10 channels<br/>email, Slack, WhatsApp, Telegram,<br/>voice, widget, X, FB, IG, TikTok"]

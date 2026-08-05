@@ -202,6 +202,71 @@ html[data-os="on"] .editorial-root {
   );
 }
 
+/* pre-rendered architecture docs in the content pane */
+.os-doc h1 {
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.75rem;
+}
+.os-doc h2 {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-os-ink-soft);
+  margin: 2rem 0 0.75rem;
+}
+.os-doc p {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin-bottom: 0.9rem;
+}
+.os-doc ol,
+.os-doc ul {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin: 0 0 1rem 1.25rem;
+}
+.os-doc ol {
+  list-style: decimal;
+}
+.os-doc ul {
+  list-style: disc;
+}
+.os-doc li {
+  margin-bottom: 0.35rem;
+}
+.os-doc strong {
+  font-weight: 600;
+}
+.os-doc a {
+  color: var(--color-os-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--color-os-amber);
+}
+.os-doc code {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  background: var(--color-os-chassis);
+  padding: 0.1em 0.35em;
+}
+.os-doc img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0.5rem 0 1.5rem;
+  background: var(--color-os-chassis-hi);
+  border: 2px solid;
+  border-color: var(--color-os-chassis-lo) var(--color-os-chassis-hi)
+    var(--color-os-chassis-hi) var(--color-os-chassis-lo);
+}
+.os-doc em {
+  font-style: italic;
+  color: var(--color-os-ink-soft);
+}
+
 /* phosphor instrument readout in the properties pane */
 .os-readout {
   font-family: var(--font-mono);

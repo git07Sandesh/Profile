@@ -1,0 +1,19 @@
+flowchart TD
+    V["Attendee browser"]
+
+    V --> MW["middleware.ts<br/>host to tenant resolution<br/>floor-plan allowlist in production"]
+    MW --> FP["/floor-plan/[showId]<br/>Next.js 16 App Router"]
+
+    FP --> API["/api/floor-plan/published"]
+    API --> ADM["firebase-admin<br/>server side"]
+    ADM --> FS[("Firestore<br/>one published plan per show<br/>booths, zones")]
+
+    FP --> KON["Konva canvas<br/>zoom, pan, booth hit-testing"]
+    KON --> DET["Exhibitor detail panel<br/>search sidebar, seminars overlay"]
+
+    FP -.-> R2[("Cloudflare R2<br/>exhibitor media")]
+    FP -.-> PH["PostHog<br/>proxied via /ingest"]
+    DET -.-> TRK["/api/floor-plan/track<br/>click analytics"]
+
+    ADMIN["Admin authoring<br/>Firebase Auth + role claim"] --> CR["Cloud Run<br/>booth detection"]
+    CR --> FS

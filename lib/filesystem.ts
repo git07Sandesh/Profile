@@ -1,3 +1,4 @@
+import { architectureDocs } from "@/lib/architecture.generated";
 import {
   awards,
   experience,
@@ -21,6 +22,7 @@ export type View =
   | { kind: "gallery"; title: string; images: { src: string; alt: string }[] }
   | { kind: "link"; label: string; href: string }
   | { kind: "pdf"; label: string; href: string }
+  | { kind: "architecture"; project: string; title: string }
   | { kind: "contact"; email: string; socials: LinkRef[] };
 
 /** Shape the properties pane renders. Sourced from content.ts now; a GitHub fetch can fill the same shape later. */
@@ -52,7 +54,38 @@ export type FsNode = {
 };
 
 /** Add a project id here once real images land in /public: the folder appears on its own. */
-const SCREENSHOTS: Record<string, { src: string; alt: string }[]> = {};
+const SCREENSHOTS: Record<string, { src: string; alt: string }[]> = {
+  transworld: [
+    {
+      src: "/shots/transworld/01-floor-plan.jpg",
+      alt: "Interactive floor plan with colour-coded zones and 441 exhibitors",
+    },
+    {
+      src: "/shots/transworld/02-exhibitor-detail.jpg",
+      alt: "Exhibitor detail panel opened from a booth on the map",
+    },
+    {
+      src: "/shots/transworld/03-search.jpg",
+      alt: "Exhibitor search filtering the map down to matching booths",
+    },
+    {
+      src: "/shots/transworld/05-home.jpg",
+      alt: "Show marketing homepage with countdown and hero video",
+    },
+  ],
+  suga: [
+    {
+      src: "/shots/suga/01-dashboard.jpg",
+      alt: "Support analytics dashboard with volume trends, heatmap and SLA overview",
+    },
+    {
+      src: "/shots/suga/02-workflow-builder.jpg",
+      alt: "Workflow builder canvas with the trigger and action node palette",
+    },
+    { src: "/shots/suga/03-marketing.jpg", alt: "Suga marketing site" },
+    { src: "/shots/suga/04-pricing.jpg", alt: "Pricing page" },
+  ],
+};
 
 function slugLink(label: string) {
   return `${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.link`;
@@ -80,6 +113,27 @@ function projectNode(p: Project): FsNode {
         rows: [
           { label: "Project", value: p.name },
           { label: "Sections", value: "Problem · Approach · Outcome" },
+        ],
+      },
+    });
+  }
+
+  if (architectureDocs[p.id]) {
+    children.push({
+      name: "architecture.md",
+      path: `${base}/architecture.md`,
+      type: "file",
+      view: {
+        kind: "architecture",
+        project: p.id,
+        title: `${p.name} architecture`,
+      },
+      meta: {
+        kind: "System design",
+        rows: [
+          { label: "Project", value: p.name },
+          { label: "Diagram", value: "Pre-rendered SVG" },
+          { label: "Source", value: `docs/architecture/${p.id}.md` },
         ],
       },
     });

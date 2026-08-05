@@ -1,0 +1,21 @@
+flowchart TD
+    U["User uploads a resume PDF"]
+
+    U --> WEB["ClusterPath Web<br/>React 19, Vite, shadcn<br/>Vercel"]
+    WEB -->|"Supabase Auth"| SB[("Supabase<br/>Postgres + pgvector")]
+    WEB -->|"/api/v1"| API["ClusterPath API<br/>FastAPI, Azure"]
+
+    API --> P1["Parse<br/>PyMuPDF"]
+    P1 --> P2["Extract keywords<br/>YAKE + KeyBERT"]
+    P1 --> P3["Embed sections<br/>Gemini embedding-001"]
+
+    P3 --> M["Vector match<br/>pgvector RPCs"]
+    P2 --> M
+    M --> SB
+
+    P3 --> CL["Cluster<br/>k-means over section embeddings"]
+    CL --> G["Skills and jobs graph<br/>React Flow, sigma, d3"]
+
+    M --> RM["Career roadmap<br/>gemini-2.0-flash"]
+    RM --> G
+    G --> WEB
