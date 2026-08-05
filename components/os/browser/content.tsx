@@ -2,7 +2,7 @@
 
 import type { FsNode } from "@/lib/filesystem";
 import { about, awards, experience, highlights, profile } from "@/lib/content";
-import { FileIcon, FolderIcon } from "../icons";
+import { NodeIcon, PdfIcon } from "../icons";
 import { ExternalIcon, MailIcon, iconForLabel } from "../brand-icons";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
@@ -277,7 +277,7 @@ function AboutView() {
           {awards.map((a) => (
             <li key={a} className="flex gap-2.5 text-[13px] leading-snug">
               <span aria-hidden className="text-os-amber">
-                —
+                ·
               </span>
               {a}
             </li>
@@ -293,7 +293,7 @@ function PdfView({ label, href }: { label: string; href: string }) {
     <div className="flex h-full flex-col bg-os-chassis-hi">
       <div className="bevel-out flex shrink-0 items-center gap-2 bg-os-chassis px-3 py-1.5">
         <span className="size-4 shrink-0">
-          <FileIcon />
+          <PdfIcon />
         </span>
         <span className="truncate font-mono text-[11px]">{href.split("/").pop()}</span>
         <div className="ml-auto flex items-center gap-1.5">
@@ -318,7 +318,7 @@ function PdfView({ label, href }: { label: string; href: string }) {
         </div>
       </div>
 
-      {/* Native browser PDF rendering — no viewer library needed. */}
+      {/* Native browser PDF rendering: no viewer library needed. */}
       <object data={href} type="application/pdf" className="min-h-0 flex-1 bg-os-slate-lo">
         <div className="grid h-full place-items-center p-6 text-center">
           <div>
@@ -374,8 +374,8 @@ function Grid({
             onClick={() => onOpen(n.path)}
             className="flex w-full flex-col items-center gap-1.5 p-2.5 text-center hover:bg-os-amber/25"
           >
-            <span className="size-7">
-              {n.type === "dir" ? <FolderIcon /> : <FileIcon />}
+            <span className="size-8">
+              <NodeIcon node={n} />
             </span>
             <span className="break-all font-mono text-[11px] leading-tight">
               {n.name}

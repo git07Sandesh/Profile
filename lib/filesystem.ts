@@ -38,10 +38,20 @@ export type FsNode = {
   view: View;
   meta: Meta;
   children?: FsNode[];
-  icon?: "know-me";
+  icon?:
+    | "know-me"
+    | "projects"
+    | "skills"
+    | "experience"
+    | "resume"
+    | "contact"
+    | "project"
+    | "markdown"
+    | "text"
+    | "link";
 };
 
-/** Add a project id here once real images land in /public — the folder appears on its own. */
+/** Add a project id here once real images land in /public: the folder appears on its own. */
 const SCREENSHOTS: Record<string, { src: string; alt: string }[]> = {};
 
 function slugLink(label: string) {
@@ -97,7 +107,7 @@ function projectNode(p: Project): FsNode {
       name: "screenshots",
       path: `${base}/screenshots`,
       type: "dir",
-      view: { kind: "gallery", title: `${p.name} — screenshots`, images: shots },
+      view: { kind: "gallery", title: `${p.name} screenshots`, images: shots },
       meta: {
         kind: "Folder",
         rows: [{ label: "Items", value: `${shots.length}` }],
@@ -109,6 +119,7 @@ function projectNode(p: Project): FsNode {
     name: p.id,
     path: base,
     type: "dir",
+    icon: "project",
     view: { kind: "project", project: p },
     meta: projectMeta(p),
     children,
@@ -135,11 +146,13 @@ function folder(
   path: string,
   children: FsNode[],
   kindNote?: string,
+  icon?: FsNode["icon"],
 ): FsNode {
   return {
     name,
     path,
     type: "dir",
+    icon,
     view: { kind: "folder" },
     meta: {
       kind: "Folder",
@@ -196,6 +209,7 @@ function buildTree(): FsNode {
       };
     }),
     "Skill groups",
+    "skills",
   );
 
   const experienceDir = folder(
@@ -210,7 +224,7 @@ function buildTree(): FsNode {
           type: "file" as const,
           view: {
             kind: "prose" as const,
-            title: `${e.role} — ${e.org}`,
+            title: `${e.role} at ${e.org}`,
             paragraphs: [e.summary],
           },
           meta: {
@@ -236,6 +250,7 @@ function buildTree(): FsNode {
       },
     ],
     "Positions & awards",
+    "experience",
   );
 
   return folder(
@@ -243,13 +258,14 @@ function buildTree(): FsNode {
     "/",
     [
       knowMe,
-      folder("projects", "/projects", projectNodes, "Case studies"),
+      folder("projects", "/projects", projectNodes, "Case studies", "projects"),
       skillsDir,
       experienceDir,
       {
         name: "resume.pdf",
         path: "/resume.pdf",
         type: "file",
+        icon: "resume",
         view: { kind: "pdf", label: "Résumé", href: profile.resumeUrl },
         meta: {
           kind: "PDF document",
@@ -264,6 +280,7 @@ function buildTree(): FsNode {
         name: "contact.txt",
         path: "/contact.txt",
         type: "file",
+        icon: "contact",
         view: {
           kind: "contact",
           email: profile.email,

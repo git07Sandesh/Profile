@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { FsNode } from "@/lib/filesystem";
-import { FileIcon, FolderIcon, KnowMeIcon } from "../icons";
+import { NodeIcon } from "../icons";
 
 function ancestorsOf(path: string): string[] {
   const parts = path.split("/").filter(Boolean);
@@ -92,14 +92,8 @@ function Row({
         <span className="w-2 shrink-0 text-[9px] leading-none opacity-70">
           {isDir ? (isOpen ? "▾" : "▸") : ""}
         </span>
-        <span className="size-3.5 shrink-0">
-          {node.icon === "know-me" ? (
-            <KnowMeIcon />
-          ) : isDir ? (
-            <FolderIcon open={isOpen && !isSelected} />
-          ) : (
-            <FileIcon />
-          )}
+        <span className="size-4 shrink-0">
+          <NodeIcon node={node} open={isOpen && !isSelected} />
         </span>
         <span className="truncate">{node.name}</span>
       </button>
