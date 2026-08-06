@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import type { FsNode } from "@/lib/filesystem";
 import { about, awards, experience, highlights, profile } from "@/lib/content";
 import { architectureDocs } from "@/lib/architecture.generated";
@@ -181,7 +183,11 @@ export function Content({
   );
 }
 
+/** Drop a file here and it appears; until then the monogram stands in. */
+const PORTRAIT = "/portrait.jpg";
+
 function AboutView() {
+  const [portraitOk, setPortraitOk] = useState(true);
   const initials = profile.name
     .split(" ")
     .map((p) => p[0])
@@ -190,8 +196,18 @@ function AboutView() {
   return (
     <>
       <header className="flex flex-wrap items-center gap-4">
-        <div className="bevel-out grid size-14 shrink-0 place-items-center bg-os-chassis font-mono text-sm tracking-wider">
-          {initials}
+        <div className="bevel-out grid size-14 shrink-0 place-items-center overflow-hidden bg-os-chassis font-mono text-sm tracking-wider">
+          {portraitOk ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={PORTRAIT}
+              alt={profile.name}
+              onError={() => setPortraitOk(false)}
+              className="size-full object-cover"
+            />
+          ) : (
+            initials
+          )}
         </div>
         <div className="min-w-0">
           <h1 className="text-xl font-medium tracking-tight">{profile.name}</h1>
@@ -230,9 +246,9 @@ function AboutView() {
 
       <ul className="mt-7 grid gap-2 grid-cols-[repeat(auto-fit,minmax(132px,1fr))]">
         {highlights.map((h) => (
-          <li key={h.label} className="bevel-in bg-os-slate-lo px-3 py-2.5">
+          <li key={h.label} className="bevel-in bg-os-inset px-3 py-2.5">
             <p className="os-readout text-lg leading-none">{h.value}</p>
-            <p className="mt-1.5 font-mono text-[10px] uppercase leading-tight tracking-wider text-os-chassis-lo">
+            <p className="mt-1.5 font-mono text-[10px] uppercase leading-tight tracking-wider text-os-inset-ink-soft">
               {h.label}
             </p>
           </li>
