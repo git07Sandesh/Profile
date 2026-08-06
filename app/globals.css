@@ -25,31 +25,31 @@
   --color-accent-ink: #0a0a0c; /* text on accent */
 
   /* ---- workstation OS skin (desktop only; the editorial view never uses these) ---- */
-  --color-os-chassis: #c8c4b8;
-  --color-os-chassis-hi: #e2ded2;
-  --color-os-chassis-lo: #8f8b80;
-  --color-os-slate: #2b3a3f;
-  --color-os-slate-lo: #1f2a2e;
-  --color-os-void: #1a2226;
-  --color-os-amber: #e08a2e;
-  --color-os-phosphor: #7ce0b0;
-  --color-os-ink: #14181a;
-  --color-os-ink-soft: #5c605d;
+  --color-os-chassis: #c4ccd3;
+  --color-os-chassis-hi: #e7ecf0;
+  --color-os-chassis-lo: #88929a;
+  --color-os-slate: #284450;
+  --color-os-slate-lo: #1d3540;
+  --color-os-void: #5b7f8f;
+  --color-os-amber: #30afff;
+  --color-os-phosphor: #92eeff;
+  --color-os-ink: #101619;
+  --color-os-ink-soft: #4a565e;
 
   /* Bevel lighting, deliberately separate from surface colour: in dark mode
      surfaces darken while the highlight edge must stay relatively light. */
-  --color-os-edge-hi: #e2ded2;
-  --color-os-edge-lo: #8f8b80;
+  --color-os-edge-hi: #f6f9fc;
+  --color-os-edge-lo: #747f88;
 
   /* Text on surfaces that keep their colour across themes, so these must not
      flip either: the title bar is always dark, amber is always light. */
-  --color-os-title-ink: #e2ded2;
-  --color-os-accent-ink: #14181a;
+  --color-os-title-ink: #e7ecf0;
+  --color-os-accent-ink: #0b1418;
 
   /* The recessed instrument panel and its own text ramp. */
-  --color-os-inset: #1a2226;
-  --color-os-inset-ink: #c8c4b8;
-  --color-os-inset-ink-soft: #8f8b80;
+  --color-os-inset: #1b2c34;
+  --color-os-inset-ink: #d2dbe1;
+  --color-os-inset-ink-soft: #93a0a8;
 
   /* ---- type families ---- */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
@@ -211,20 +211,20 @@ html[data-os="on"] .editorial-root {
 /* ---- dark colour mode ---- */
 
 .os-root[data-theme="dark"] {
-  --color-os-chassis: #34393d;
-  --color-os-chassis-hi: #3f4549;
-  --color-os-chassis-lo: #23272a;
-  --color-os-edge-hi: #565d63;
-  --color-os-edge-lo: #191d20;
-  --color-os-ink: #e8e6df;
-  --color-os-ink-soft: #9aa0a2;
-  --color-os-slate: #232a2e;
-  --color-os-slate-lo: #191f22;
-  --color-os-void: #0d1113;
+  --color-os-chassis: #353f47;
+  --color-os-chassis-hi: #465059;
+  --color-os-chassis-lo: #191f24;
+  --color-os-edge-hi: #6a7783;
+  --color-os-edge-lo: #11161a;
+  --color-os-ink: #e7ecf0;
+  --color-os-ink-soft: #bdc7ce;
+  --color-os-slate: #1e2c34;
+  --color-os-slate-lo: #162127;
+  --color-os-void: #1e2a30;
   /* title-ink and accent-ink intentionally unchanged: their backgrounds do not flip. */
-  --color-os-inset: #15191b;
-  --color-os-inset-ink: #d8d5cc;
-  --color-os-inset-ink-soft: #7f8587;
+  --color-os-inset: #131c22;
+  --color-os-inset-ink: #d6dee4;
+  --color-os-inset-ink-soft: #828e96;
 }
 
 /* ---- chrome skins ---- */
@@ -377,7 +377,7 @@ html[data-os="on"] .editorial-root {
 .os-readout {
   font-family: var(--font-mono);
   color: var(--color-os-phosphor);
-  text-shadow: 0 0 10px rgba(124, 224, 176, 0.35);
+  text-shadow: 0 0 10px rgba(146, 238, 255, 0.35);
 }
 
 /* ---- the modern half: glass lives on the desktop layer only ---- */
@@ -386,7 +386,7 @@ html[data-os="on"] .editorial-root {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #12181b;
+  background: #4a707f;
 }
 
 /* Coloured pools give the glass something to actually refract. */
@@ -395,10 +395,10 @@ html[data-os="on"] .editorial-root {
   position: absolute;
   inset: -20%;
   background:
-    radial-gradient(38vw 42vh at 20% 18%, rgba(124, 92, 255, 0.3), transparent 62%),
-    radial-gradient(34vw 38vh at 82% 26%, rgba(45, 212, 191, 0.22), transparent 62%),
-    radial-gradient(40vw 40vh at 62% 92%, rgba(224, 138, 46, 0.2), transparent 62%),
-    radial-gradient(30vw 34vh at 8% 88%, rgba(80, 120, 255, 0.16), transparent 62%);
+    radial-gradient(38vw 42vh at 20% 18%, rgba(48, 175, 255, 0.28), transparent 62%),
+    radial-gradient(34vw 38vh at 82% 26%, rgba(146, 238, 255, 0.2), transparent 62%),
+    radial-gradient(40vw 40vh at 62% 92%, rgba(196, 247, 202, 0.16), transparent 62%),
+    radial-gradient(30vw 34vh at 8% 88%, rgba(94, 129, 172, 0.22), transparent 62%);
   animation: os-drift 48s ease-in-out infinite alternate;
 }
 
@@ -420,7 +420,8 @@ html[data-os="on"] .editorial-root {
 }
 
 .os-glass {
-  background: color-mix(in srgb, white 8%, transparent);
+  /* Tinted dark, not white: white glass loses text contrast over a lit wallpaper. */
+  background: color-mix(in srgb, #0e1a20 55%, transparent);
   backdrop-filter: blur(22px) saturate(150%);
   -webkit-backdrop-filter: blur(22px) saturate(150%);
   border: 1px solid color-mix(in srgb, white 16%, transparent);

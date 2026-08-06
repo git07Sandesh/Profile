@@ -91,13 +91,13 @@ export function AggregationField({
         const falloff = 0.35 + 0.65 * (1 - d / RADIUS);
         const a = falloff * wave * EDGE_ALPHA * amp.current;
 
-        ctx.strokeStyle = `rgba(124,224,176,${a})`;
+        ctx.strokeStyle = `rgba(146,238,255,${a})`;
         ctx.beginPath();
         ctx.moveTo(px, py);
         ctx.lineTo(cx, cy);
         ctx.stroke();
 
-        ctx.fillStyle = `rgba(124,224,176,${Math.min(a * 2.4, 0.55)})`;
+        ctx.fillStyle = `rgba(146,238,255,${Math.min(a * 2.4, 0.55)})`;
         ctx.fillRect(px - 1, py - 1, 2, 2);
       }
     };
