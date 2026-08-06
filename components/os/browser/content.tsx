@@ -196,7 +196,7 @@ function AboutView() {
   return (
     <>
       <header className="flex flex-wrap items-center gap-4">
-        <div className="bevel-out grid size-14 shrink-0 place-items-center overflow-hidden bg-os-chassis font-mono text-sm tracking-wider">
+        <div className="bevel-out grid size-28 shrink-0 place-items-center overflow-hidden bg-os-chassis font-mono text-lg tracking-wider">
           {portraitOk ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
