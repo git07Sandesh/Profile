@@ -2,10 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
-const NODES = 52;
+const NODES = 64;
 const RADIUS = 0.42;
 const RIPPLE_MS = 900;
-const EDGE_ALPHA = 0.18;
+const EDGE_ALPHA = 0.34;
 const ICON_COLUMN = 130;
 
 /**
@@ -86,7 +86,7 @@ export function AggregationField({ paused = false }: { paused?: boolean }) {
         ctx.lineTo(cx, cy);
         ctx.stroke();
 
-        ctx.fillStyle = `rgba(124,224,176,${Math.min(a * 2.2, 0.28)})`;
+        ctx.fillStyle = `rgba(124,224,176,${Math.min(a * 2.4, 0.55)})`;
         ctx.fillRect(px - 1, py - 1, 2, 2);
       }
     };
