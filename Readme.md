@@ -111,10 +111,17 @@ Deliberately split down the middle, with one rule: **the desk is modern, the mac
 | Vintage | Modern |
 |---|---|
 | Window chrome, chunky bevels | Ambient drifting wallpaper |
-| Hatched slate title bars | Frosted glass taskbar |
-| Warm grey chassis `#c8c4b8` | Depth, blur, soft rounding |
-| Phosphor readouts `#7ce0b0` | |
-| Amber accent `#e08a2e` | |
+| Hatched title bars | Frosted glass taskbar |
+| Phosphor readouts `#7ce0b0` | Depth, blur, soft rounding |
+| Amber accent `#e08a2e` | Light and dark colour modes |
+
+Two colour modes, switchable from the taskbar. **Light** is warm cream: a
+`#f8f4ea` content pane in tan chrome under an olive-brown title bar. **Dark**
+is the industrial original: warm grey chassis on teal-slate. Amber is the
+accent in both; the chrome is what changes.
+
+Four chrome skins ship alongside: Workstation, Aqua, Redmond and Gnome. They
+reference each OS family through layout and treatment rather than cloning it.
 
 Phosphor green is kept scarce on purpose. It appears only where the machine reports a real value: instrument readouts, the taskbar clock, and the boot sequence. That scarcity is what makes it read as instrumentation rather than decoration.
 

@@ -16,15 +16,20 @@ const ICON_COLUMN = 130;
 export function AggregationField({
   paused = false,
   intensity = 1,
+  theme = "light",
 }: {
   paused?: boolean;
   intensity?: number;
+  theme?: "light" | "dark";
 }) {
   const ref = useRef<HTMLCanvasElement>(null);
   const halted = useRef(paused);
   halted.current = paused;
   const amp = useRef(intensity);
   amp.current = intensity;
+  // Multiply blend darkens, so light mode needs a dark ink; dark mode adds phosphor.
+  const rgb = useRef(theme === "dark" ? "124,224,176" : "104,88,62");
+  rgb.current = theme === "dark" ? "124,224,176" : "104,88,62";
 
   useEffect(() => {
     const cv = ref.current;
@@ -91,13 +96,13 @@ export function AggregationField({
         const falloff = 0.35 + 0.65 * (1 - d / RADIUS);
         const a = falloff * wave * EDGE_ALPHA * amp.current;
 
-        ctx.strokeStyle = `rgba(146,238,255,${a})`;
+        ctx.strokeStyle = `rgba(${rgb.current},${a})`;
         ctx.beginPath();
         ctx.moveTo(px, py);
         ctx.lineTo(cx, cy);
         ctx.stroke();
 
-        ctx.fillStyle = `rgba(146,238,255,${Math.min(a * 2.4, 0.55)})`;
+        ctx.fillStyle = `rgba(${rgb.current},${Math.min(a * 2.4, 0.55)})`;
         ctx.fillRect(px - 1, py - 1, 2, 2);
       }
     };
@@ -117,7 +122,7 @@ export function AggregationField({
     <canvas
       ref={ref}
       aria-hidden
-      className="pointer-events-none absolute inset-0 size-full mix-blend-screen"
+      className="os-field pointer-events-none absolute inset-0 size-full"
     />
   );
 }

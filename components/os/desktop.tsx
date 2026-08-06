@@ -84,6 +84,7 @@ export function Desktop({
       <AggregationField
         paused={wm.wins.some((w) => w.maximized)}
         intensity={FIELD_ALPHA[field]}
+        theme={theme}
       />
 
       <div
@@ -150,12 +151,12 @@ function DesktopIcons({
             onKeyDown={(e) => {
               if (e.key === "Enter") onOpen(n.path);
             }}
-            className="group flex w-full flex-col items-center gap-1 rounded-lg p-2 text-center transition-colors hover:bg-white/12"
+            className="os-icon group flex w-full flex-col items-center gap-1 rounded-lg p-2 text-center transition-colors"
           >
             <span className="size-9 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
               <NodeIcon node={n} />
             </span>
-            <span className="break-all font-mono text-[11px] leading-tight text-white/85 [text-shadow:0_1px_4px_rgba(0,0,0,0.7)]">
+            <span className="os-icon-label break-all font-mono text-[11px] leading-tight">
               {n.name}
             </span>
           </button>
