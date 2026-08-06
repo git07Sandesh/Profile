@@ -36,6 +36,16 @@
   --color-os-ink: #14181a;
   --color-os-ink-soft: #5c605d;
 
+  /* Bevel lighting, deliberately separate from surface colour: in dark mode
+     surfaces darken while the highlight edge must stay relatively light. */
+  --color-os-edge-hi: #e2ded2;
+  --color-os-edge-lo: #8f8b80;
+
+  /* The recessed instrument panel and its own text ramp. */
+  --color-os-inset: #1a2226;
+  --color-os-inset-ink: #c8c4b8;
+  --color-os-inset-ink-soft: #8f8b80;
+
   /* ---- type families ---- */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-instrument), Georgia, "Times New Roman", serif;
@@ -182,15 +192,105 @@ html[data-os="on"] .editorial-root {
 .bevel-out {
   border-style: solid;
   border-width: 2px;
-  border-color: var(--color-os-chassis-hi) var(--color-os-chassis-lo)
-    var(--color-os-chassis-lo) var(--color-os-chassis-hi);
+  border-color: var(--color-os-edge-hi) var(--color-os-edge-lo) var(--color-os-edge-lo)
+    var(--color-os-edge-hi);
 }
 
 .bevel-in {
   border-style: solid;
   border-width: 2px;
-  border-color: var(--color-os-chassis-lo) var(--color-os-chassis-hi)
-    var(--color-os-chassis-hi) var(--color-os-chassis-lo);
+  border-color: var(--color-os-edge-lo) var(--color-os-edge-hi) var(--color-os-edge-hi)
+    var(--color-os-edge-lo);
+}
+
+/* ---- dark colour mode ---- */
+
+.os-root[data-theme="dark"] {
+  --color-os-chassis: #34393d;
+  --color-os-chassis-hi: #3f4549;
+  --color-os-chassis-lo: #23272a;
+  --color-os-edge-hi: #565d63;
+  --color-os-edge-lo: #191d20;
+  --color-os-ink: #e8e6df;
+  --color-os-ink-soft: #9aa0a2;
+  --color-os-slate: #232a2e;
+  --color-os-slate-lo: #191f22;
+  --color-os-void: #0d1113;
+  --color-os-inset: #15191b;
+  --color-os-inset-ink: #d8d5cc;
+  --color-os-inset-ink-soft: #7f8587;
+}
+
+/* ---- chrome skins ---- */
+
+.os-window {
+  border-radius: 0;
+}
+
+/* aqua: soft, rounded, controls on the left */
+.os-root[data-skin="aqua"] .os-window {
+  border-radius: 12px;
+  border: 1px solid var(--color-os-edge-lo);
+  overflow: hidden;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.5);
+}
+.os-root[data-skin="aqua"] .os-titlebar {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-os-chassis-hi) 92%, white),
+    var(--color-os-chassis)
+  );
+  color: var(--color-os-ink);
+  border-bottom: 1px solid var(--color-os-edge-lo);
+}
+.os-root[data-skin="aqua"] .os-winbtn {
+  border: none;
+  border-radius: 999px;
+  width: 12px;
+  height: 12px;
+  font-size: 0;
+}
+
+/* redmond: square, flat, hairline */
+.os-root[data-skin="redmond"] .os-window {
+  border: 1px solid var(--color-os-edge-lo);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+}
+.os-root[data-skin="redmond"] .os-titlebar {
+  background: var(--color-os-slate);
+  background-image: none;
+  border-bottom: 1px solid var(--color-os-edge-lo);
+}
+.os-root[data-skin="redmond"] .os-winbtn {
+  border: none;
+  border-radius: 0;
+  width: 34px;
+  background: transparent;
+  color: var(--color-os-chassis-hi);
+}
+.os-root[data-skin="redmond"] .os-winbtn:hover {
+  background: color-mix(in srgb, white 18%, transparent);
+}
+
+/* gnome: rounded header bar, centred title, one control */
+.os-root[data-skin="gnome"] .os-window {
+  border-radius: 12px 12px 6px 6px;
+  border: 1px solid var(--color-os-edge-lo);
+  overflow: hidden;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.5);
+}
+.os-root[data-skin="gnome"] .os-titlebar {
+  background: var(--color-os-chassis);
+  background-image: none;
+  color: var(--color-os-ink);
+  border-bottom: 1px solid var(--color-os-edge-lo);
+  justify-content: center;
+}
+.os-root[data-skin="gnome"] .os-winbtn {
+  border: none;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-os-ink) 12%, transparent);
+  color: var(--color-os-ink);
 }
 
 /* hatched title bar: the workstation tell */

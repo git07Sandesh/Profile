@@ -13,10 +13,18 @@ const ICON_COLUMN = 130;
  * wandering centroid brighten in an outward ripple. Secure aggregation, running
  * continuously behind the desktop.
  */
-export function AggregationField({ paused = false }: { paused?: boolean }) {
+export function AggregationField({
+  paused = false,
+  intensity = 1,
+}: {
+  paused?: boolean;
+  intensity?: number;
+}) {
   const ref = useRef<HTMLCanvasElement>(null);
   const halted = useRef(paused);
   halted.current = paused;
+  const amp = useRef(intensity);
+  amp.current = intensity;
 
   useEffect(() => {
     const cv = ref.current;
@@ -54,7 +62,10 @@ export function AggregationField({ paused = false }: { paused?: boolean }) {
       last = t;
 
       // Nothing to see when a window covers the desktop, so skip the work.
-      if (halted.current) return;
+      if (halted.current || amp.current <= 0) {
+        ctx.clearRect(0, 0, w, h);
+        return;
+      }
 
       ctx.clearRect(0, 0, w, h);
 
@@ -78,7 +89,7 @@ export function AggregationField({ paused = false }: { paused?: boolean }) {
         // a wave travelling through it, not edges blinking in and out.
         const wave = 0.55 + 0.45 * Math.sin(t / RIPPLE_MS - d * 14);
         const falloff = 0.35 + 0.65 * (1 - d / RADIUS);
-        const a = falloff * wave * EDGE_ALPHA;
+        const a = falloff * wave * EDGE_ALPHA * amp.current;
 
         ctx.strokeStyle = `rgba(124,224,176,${a})`;
         ctx.beginPath();

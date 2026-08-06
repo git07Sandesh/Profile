@@ -7,6 +7,8 @@ import { profile } from "@/lib/content";
 import { Window } from "./wm/window";
 import { NodeIcon } from "./icons";
 import { AggregationField } from "./aggregation-field";
+import { DisplayOptions } from "./display-options";
+import { FIELD_ALPHA, useOsPrefs } from "@/lib/os-prefs";
 import {
   TASKBAR_H,
   initialWm,
@@ -25,6 +27,8 @@ export function Desktop({
 }) {
   const [wm, dispatch] = useReducer(wmReducer, initialWm);
   const [bounds, setBounds] = useState<Bounds>({ w: 1440, h: 860 });
+  const [showDisplay, setShowDisplay] = useState(false);
+  const { theme, skin, field } = useOsPrefs();
 
   useEffect(() => {
     const sync = () =>
@@ -74,10 +78,13 @@ export function Desktop({
   const icons = root.children ?? [];
 
   return (
-    <div className="os-root">
+    <div className="os-root" data-theme={theme} data-skin={skin}>
       {/* Full height, behind the taskbar too, so its glass has something to refract. */}
       <div className="os-wallpaper" aria-hidden />
-      <AggregationField paused={wm.wins.some((w) => w.maximized)} />
+      <AggregationField
+        paused={wm.wins.some((w) => w.maximized)}
+        intensity={FIELD_ALPHA[field]}
+      />
 
       <div
         className="absolute inset-x-0 top-0 overflow-hidden"
@@ -112,11 +119,15 @@ export function Desktop({
         </AnimatePresence>
       </div>
 
+      <DisplayOptions open={showDisplay} onClose={() => setShowDisplay(false)} />
+
       <Taskbar
         wins={wm.wins.map((w) => ({ id: w.id, title: w.title }))}
         activeId={top}
         onSelect={(id) => dispatch({ type: "FOCUS", id })}
         onOpen={open}
+        displayOpen={showDisplay}
+        onToggleDisplay={() => setShowDisplay((v) => !v)}
       />
     </div>
   );
@@ -159,11 +170,15 @@ function Taskbar({
   activeId,
   onSelect,
   onOpen,
+  displayOpen,
+  onToggleDisplay,
 }: {
   wins: { id: string; title: string }[];
   activeId: string | null;
   onSelect: (id: string) => void;
   onOpen: (path: string) => void;
+  displayOpen: boolean;
+  onToggleDisplay: () => void;
 }) {
   const [clock, setClock] = useState("");
 
@@ -223,6 +238,24 @@ function Taskbar({
       >
         contact
       </button>
+      <button
+        type="button"
+        onClick={onToggleDisplay}
+        aria-label="Display options"
+        aria-pressed={displayOpen}
+        title="Display options"
+        className={`grid size-7 shrink-0 place-items-center rounded-lg border transition-colors ${
+          displayOpen
+            ? "border-white/35 bg-white/22 text-white"
+            : "border-white/15 bg-white/8 text-white/70 hover:bg-white/16 hover:text-white"
+        }`}
+      >
+        <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden>
+          <circle cx="12" cy="12" r="3.2" />
+          <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1" />
+        </svg>
+      </button>
+
       {/* Recessed LCD: phosphor only reads against a dark surface. */}
       <span className="os-readout shrink-0 rounded-md border border-white/10 bg-black/35 px-2 py-0.5 text-[11px] tabular-nums">
         {clock}

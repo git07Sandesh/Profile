@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { usePointerGesture } from "../use-pointer-gesture";
+import { useOsPrefs } from "@/lib/os-prefs";
 import {
   MIN_H,
   MIN_W,
@@ -69,9 +70,42 @@ export function Window({
   onGeometry: (rect: Rect) => void;
 }) {
   const gesture = usePointerGesture();
+  const { skin } = useOsPrefs();
   const [live, setLive] = useState<Rect | null>(null);
   const [snapHint, setSnapHint] = useState<Rect | null>(null);
   const rect = live ?? win;
+
+  // Aqua puts its controls left of the title; the rest keep them on the right.
+  const controlsFirst = skin === "aqua";
+  const btn =
+    "os-winbtn grid size-5 place-items-center font-mono text-[10px] text-os-ink " +
+    (skin === "workstation" ? "bevel-out bg-os-chassis" : "");
+
+  const controls = (
+    <div className="flex items-center gap-1.5">
+      {/* Gnome header bars carry a close affordance only. */}
+      {skin === "gnome" ? null : (
+        <button
+          type="button"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={onMaximize}
+          aria-label={win.maximized ? "Restore window" : "Maximize window"}
+          className={`${btn} ${skin === "aqua" ? "bg-[#f5bd4f]" : "hover:bg-os-chassis-hi"}`}
+        >
+          {win.maximized ? "❐" : "□"}
+        </button>
+      )}
+      <button
+        type="button"
+        onPointerDown={(e) => e.stopPropagation()}
+        onClick={onClose}
+        aria-label="Close window"
+        className={`${btn} ${skin === "aqua" ? "bg-[#ec6a5f]" : "hover:bg-os-amber"}`}
+      >
+        ✕
+      </button>
+    </div>
+  );
 
   const startMove = (e: React.PointerEvent) => {
     onFocus();
@@ -133,9 +167,9 @@ export function Window({
         exit={{ opacity: 0, scale: 0.985 }}
         transition={{ duration: 0.14, ease: "easeOut" }}
         onPointerDownCapture={onFocus}
-        className={`bevel-out absolute flex flex-col bg-os-chassis ${
-          focused ? "shadow-[0_18px_50px_rgba(0,0,0,0.55)]" : "shadow-none"
-        }`}
+        className={`os-window absolute flex flex-col bg-os-chassis ${
+          skin === "workstation" ? "bevel-out" : ""
+        } ${focused ? "shadow-[0_18px_50px_rgba(0,0,0,0.55)]" : "shadow-none"}`}
         style={{
           left: rect.x,
           top: rect.y,
@@ -147,39 +181,31 @@ export function Window({
         <header
           onPointerDown={startMove}
           onDoubleClick={onMaximize}
-          className={`flex shrink-0 select-none items-center gap-2 px-2 py-1.5 ${
-            focused ? "os-hatch" : "bg-os-slate-lo"
-          }`}
+          className={`os-titlebar flex shrink-0 select-none items-center gap-2 px-2 py-1.5 ${
+            skin === "workstation" && focused ? "os-hatch" : ""
+          } ${skin === "workstation" && !focused ? "bg-os-slate-lo" : ""}`}
           style={{ cursor: "grab" }}
         >
-          <span
-            aria-hidden
-            className={`size-2.5 shrink-0 ${focused ? "bg-os-amber" : "bg-os-chassis-lo"}`}
-          />
-          <h2 className="truncate font-mono text-xs tracking-wide text-os-chassis-hi">
+          {controlsFirst ? controls : null}
+
+          {skin === "workstation" ? (
+            <span
+              aria-hidden
+              className={`size-2.5 shrink-0 ${focused ? "bg-os-amber" : "bg-os-chassis-lo"}`}
+            />
+          ) : null}
+
+          <h2
+            className={`truncate font-mono text-xs tracking-wide ${
+              skin === "workstation" || skin === "redmond"
+                ? "text-os-chassis-hi"
+                : "text-os-ink"
+            } ${skin === "gnome" ? "text-center" : ""} ${controlsFirst ? "flex-1" : ""}`}
+          >
             {win.title}
           </h2>
 
-          <div className="ml-auto flex items-center gap-1">
-            <button
-              type="button"
-              onPointerDown={(e) => e.stopPropagation()}
-              onClick={onMaximize}
-              aria-label={win.maximized ? "Restore window" : "Maximize window"}
-              className="bevel-out grid size-5 place-items-center bg-os-chassis font-mono text-[10px] text-os-ink hover:bg-os-chassis-hi"
-            >
-              {win.maximized ? "❐" : "□"}
-            </button>
-            <button
-              type="button"
-              onPointerDown={(e) => e.stopPropagation()}
-              onClick={onClose}
-              aria-label="Close window"
-              className="bevel-out grid size-5 place-items-center bg-os-chassis font-mono text-[10px] text-os-ink hover:bg-os-amber"
-            >
-              ✕
-            </button>
-          </div>
+          {controlsFirst ? null : <div className="ml-auto flex items-center gap-1">{controls}</div>}
         </header>
 
         <div className="min-h-0 flex-1 overflow-hidden">{children}</div>

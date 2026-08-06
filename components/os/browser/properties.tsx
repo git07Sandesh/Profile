@@ -5,7 +5,7 @@ import { iconForLabel } from "../brand-icons";
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.18em] text-os-chassis-lo">
+    <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.18em] text-os-inset-ink-soft">
       {children}
     </p>
   );
@@ -17,20 +17,20 @@ export function Properties({ node }: { node: FsNode }) {
   return (
     <aside
       aria-label="Properties"
-      className="h-full overflow-auto bg-os-void p-4 text-os-chassis"
+      className="h-full overflow-auto bg-os-inset p-4 text-os-inset-ink"
     >
       <Label>Properties</Label>
 
-      <p className="font-mono text-sm text-os-chassis-hi">{node.name}</p>
-      <p className="mt-0.5 font-mono text-[11px] text-os-chassis-lo">{meta.kind}</p>
+      <p className="font-mono text-sm text-os-inset-ink">{node.name}</p>
+      <p className="mt-0.5 font-mono text-[11px] text-os-inset-ink-soft">{meta.kind}</p>
 
       <dl className="mt-5 space-y-2 border-t border-os-slate pt-4">
         {meta.rows.map((r) => (
           <div key={r.label} className="grid grid-cols-[64px_1fr] gap-2">
-            <dt className="font-mono text-[10px] uppercase tracking-wider text-os-chassis-lo">
+            <dt className="font-mono text-[10px] uppercase tracking-wider text-os-inset-ink-soft">
               {r.label}
             </dt>
-            <dd className="break-words text-[12px] leading-snug text-os-chassis">
+            <dd className="break-words text-[12px] leading-snug text-os-inset-ink">
               {r.value}
             </dd>
           </div>
@@ -47,7 +47,7 @@ export function Properties({ node }: { node: FsNode }) {
                 className="bevel-in border-os-slate bg-os-slate-lo px-3 py-2"
               >
                 <p className="os-readout text-lg leading-none">{r.value}</p>
-                <p className="mt-1.5 font-mono text-[10px] uppercase tracking-wider text-os-chassis-lo">
+                <p className="mt-1.5 font-mono text-[10px] uppercase tracking-wider text-os-inset-ink-soft">
                   {r.label}
                 </p>
               </li>

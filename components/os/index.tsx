@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Desktop } from "./desktop";
 import { FileBrowser } from "./browser";
 import { Boot } from "./boot";
+import { OsPrefsProvider } from "@/lib/os-prefs";
 
 const BOOTED_KEY = "sb-ws-booted";
 
@@ -19,7 +20,7 @@ export function WorkstationOS() {
   const [booted, setBooted] = useState(alreadyBooted);
 
   return (
-    <>
+    <OsPrefsProvider>
       <Desktop
         renderBody={(path, navigate) => (
           <FileBrowser path={path} onNavigate={navigate} />
@@ -35,6 +36,6 @@ export function WorkstationOS() {
           }}
         />
       )}
-    </>
+    </OsPrefsProvider>
   );
 }
