@@ -227,7 +227,7 @@ function Taskbar({
       <button
         type="button"
         onClick={() => onOpen("/resume.pdf")}
-        className="shrink-0 rounded-lg bg-os-amber px-2.5 py-1 font-mono text-[11px] text-os-ink hover:brightness-110"
+        className="shrink-0 rounded-lg bg-os-amber px-2.5 py-1 font-mono text-[11px] text-os-accent-ink hover:brightness-110"
       >
         résumé
       </button>

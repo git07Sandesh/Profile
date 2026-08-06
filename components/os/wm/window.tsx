@@ -198,7 +198,7 @@ export function Window({
           <h2
             className={`truncate font-mono text-xs tracking-wide ${
               skin === "workstation" || skin === "redmond"
-                ? "text-os-chassis-hi"
+                ? "text-os-title-ink"
                 : "text-os-ink"
             } ${skin === "gnome" ? "text-center" : ""} ${controlsFirst ? "flex-1" : ""}`}
           >

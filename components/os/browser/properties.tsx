@@ -68,7 +68,7 @@ export function Properties({ node }: { node: FsNode }) {
                     href={l.href}
                     target={l.href.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
-                    className="bevel-out inline-flex items-center gap-1.5 bg-os-chassis px-2 py-1 font-mono text-[11px] text-os-ink hover:bg-os-amber"
+                    className="bevel-out inline-flex items-center gap-1.5 bg-os-chassis px-2 py-1 font-mono text-[11px] text-os-ink hover:bg-os-amber hover:text-os-accent-ink"
                   >
                     <span className="size-3.5">
                       <Icon />

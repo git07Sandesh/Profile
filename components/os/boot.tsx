@@ -105,7 +105,7 @@ export function Boot({ onDone }: { onDone: () => void }) {
       <button
         type="button"
         onClick={() => setLeaving(true)}
-        className="bevel-out absolute bottom-8 right-8 bg-os-chassis px-3 py-1.5 font-mono text-[11px] text-os-ink hover:bg-os-amber"
+        className="bevel-out absolute bottom-8 right-8 bg-os-chassis px-3 py-1.5 font-mono text-[11px] text-os-ink hover:bg-os-amber hover:text-os-accent-ink"
       >
         Skip intro
       </button>

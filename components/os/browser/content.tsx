@@ -137,7 +137,7 @@ export function Content({
             href={v.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="bevel-out mt-5 inline-block bg-os-amber px-3 py-1.5 font-mono text-[12px] text-os-ink"
+            className="bevel-out mt-5 inline-block bg-os-amber px-3 py-1.5 font-mono text-[12px] text-os-accent-ink"
           >
             Open in new tab ↗
           </a>
@@ -150,7 +150,7 @@ export function Content({
           </h1>
           <a
             href={`mailto:${v.email}`}
-            className="bevel-out mt-5 inline-flex items-center gap-2 bg-os-amber px-3 py-1.5 font-mono text-[12px] text-os-ink"
+            className="bevel-out mt-5 inline-flex items-center gap-2 bg-os-amber px-3 py-1.5 font-mono text-[12px] text-os-accent-ink"
           >
             <span className="size-3.5">
               <MailIcon />
@@ -228,7 +228,7 @@ function AboutView() {
                   rel="noopener noreferrer"
                   aria-label={s.label}
                   title={s.label}
-                  className="bevel-out grid size-9 place-items-center bg-os-chassis text-os-ink hover:bg-os-amber"
+                  className="bevel-out grid size-9 place-items-center bg-os-chassis text-os-ink hover:bg-os-amber hover:text-os-accent-ink"
                 >
                   <span className="size-4">
                     <Icon />
@@ -339,7 +339,7 @@ function PdfView({ label, href }: { label: string; href: string }) {
           <a
             href={href}
             download
-            className="bevel-out bg-os-amber px-2 py-1 font-mono text-[11px] text-os-ink"
+            className="bevel-out bg-os-amber px-2 py-1 font-mono text-[11px] text-os-accent-ink"
           >
             Download
           </a>

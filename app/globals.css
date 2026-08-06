@@ -41,6 +41,11 @@
   --color-os-edge-hi: #e2ded2;
   --color-os-edge-lo: #8f8b80;
 
+  /* Text on surfaces that keep their colour across themes, so these must not
+     flip either: the title bar is always dark, amber is always light. */
+  --color-os-title-ink: #e2ded2;
+  --color-os-accent-ink: #14181a;
+
   /* The recessed instrument panel and its own text ramp. */
   --color-os-inset: #1a2226;
   --color-os-inset-ink: #c8c4b8;
@@ -216,6 +221,7 @@ html[data-os="on"] .editorial-root {
   --color-os-slate: #232a2e;
   --color-os-slate-lo: #191f22;
   --color-os-void: #0d1113;
+  /* title-ink and accent-ink intentionally unchanged: their backgrounds do not flip. */
   --color-os-inset: #15191b;
   --color-os-inset-ink: #d8d5cc;
   --color-os-inset-ink-soft: #7f8587;

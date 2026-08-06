@@ -84,7 +84,7 @@ function Row({
         aria-current={isSelected ? "true" : undefined}
         className={`flex w-full items-center gap-1.5 py-[3px] pr-2 text-left font-mono text-xs ${
           isSelected
-            ? "bg-os-amber text-os-ink"
+            ? "bg-os-amber text-os-accent-ink"
             : "text-os-ink hover:bg-os-chassis-hi"
         }`}
         style={{ paddingLeft: 8 + depth * 12 }}
